@@ -1,0 +1,15 @@
+.font-variable(@name, @file, @weight: 100 900, @style: normal) {
+	@font-face {
+		font-family: @name;
+		src: url("/fonts/@{file}.ttf") format("truetype");
+		font-weight: @weight;
+		font-style: @style;
+		font-display: swap;
+	}
+}
+
+.font-variable(
+		"SpaceGrotesk",
+		"SpaceGrotesk-VariableFont_wght",
+		300 700
+);
