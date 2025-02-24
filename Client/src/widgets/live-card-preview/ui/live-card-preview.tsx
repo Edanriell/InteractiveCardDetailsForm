@@ -1,10 +1,20 @@
 import { type FC } from "react";
 
+import { CardBackFace, CardContainer, CardFrontFace } from "./styles";
+
 export const LiveCardPreview: FC = () => {
 	return (
-		<div>
-			<div></div>
-			<div>
+		<CardContainer>
+			<CardFrontFace>
+				<div></div>
+				<div></div>
+				<div>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+				</div>
+			</CardFrontFace>
+			<CardBackFace>
 				<svg
 					width="285"
 					height="157"
@@ -139,7 +149,7 @@ export const LiveCardPreview: FC = () => {
 						</linearGradient>
 					</defs>
 				</svg>
-			</div>
-		</div>
+			</CardBackFace>
+		</CardContainer>
 	);
 };
