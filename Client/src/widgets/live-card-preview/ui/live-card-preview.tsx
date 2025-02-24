@@ -1,18 +1,26 @@
 import { type FC } from "react";
 
-import { CardBackFace, CardContainer, CardFrontFace } from "./styles";
+import {
+	CardBackFace,
+	CardContainer,
+	CardFrontFace,
+	CvvPanel,
+	MagneticStripe,
+	SignaturePanel
+} from "./styles";
 
 export const LiveCardPreview: FC = () => {
 	return (
 		<CardContainer>
 			<CardFrontFace>
-				<div></div>
-				<div></div>
-				<div>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-				</div>
+				<MagneticStripe></MagneticStripe>
+				<SignaturePanel>
+					<CvvPanel>
+						<span>0</span>
+						<span>0</span>
+						<span>0</span>
+					</CvvPanel>
+				</SignaturePanel>
 			</CardFrontFace>
 			<CardBackFace>
 				<svg
