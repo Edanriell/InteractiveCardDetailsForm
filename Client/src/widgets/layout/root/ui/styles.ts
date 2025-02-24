@@ -18,3 +18,15 @@ export const LayoutBackgroundSmall = styled.svg`
 		display: none;
 	}
 `;
+
+export const LayoutBackgroundLarge = styled.svg`
+	position: absolute;
+	top: 0;
+	left: 0;
+	zindex: 1;
+	display: none;
+
+	@media (width >= 1440px) {
+		display: block;
+	}
+`;
