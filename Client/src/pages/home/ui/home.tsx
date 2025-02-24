@@ -1,13 +1,19 @@
 import { type FC } from "react";
 
+import { LiveCardPreview } from "@widgets/live-card-preview/ui";
 import { RootLayout } from "@widgets/layout/root/ui";
+
+import { Page, PageSection, PageTitle } from "./styles";
 
 export const HomePage: FC = () => {
 	return (
 		<RootLayout>
-			<main>
-				<h1>Home Page</h1>
-			</main>
+			<Page>
+				<PageSection>
+					<LiveCardPreview />
+					<PageTitle>Interactive card details form</PageTitle>
+				</PageSection>
+			</Page>
 		</RootLayout>
 	);
 };
