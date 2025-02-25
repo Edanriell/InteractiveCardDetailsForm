@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-	position: relative;
+	position: absolute;
+	width: 342rem;
+	height: 250rem;
+	left: 50%;
+	top: 32rem;
+	transform: translateX(-50%);
 `;
 
 export const CardFrontFace = styled.div`
-	position: relative;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 	display: block;
 	border-radius: 6rem;
 	width: 285rem;
@@ -79,7 +86,9 @@ export const CardExpirationDate = styled.div`
 `;
 
 export const CardBackFace = styled.div`
-	position: relative;
+	position: absolute;
+	top: 0;
+	right: 0;
 	display: block;
 	border-radius: 6rem;
 	width: 286rem;

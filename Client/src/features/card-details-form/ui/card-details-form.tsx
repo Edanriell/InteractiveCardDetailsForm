@@ -1,4 +1,6 @@
-import { type FC, useId } from "react";
+import { type FC, Fragment, useId } from "react";
+
+import { LiveCardPreview } from "@widgets/live-card-preview/ui";
 
 export const CardDetailsForm: FC = () => {
 	const cardHolderFullNameInputId = useId();
@@ -8,46 +10,53 @@ export const CardDetailsForm: FC = () => {
 	const cardCvcCodeInputId = useId();
 
 	return (
-		<form>
-			<fieldset>
-				<legend>Card Details</legend>
-				<div>
-					<label htmlFor={cardHolderFullNameInputId}>Cardholder Name</label>
-					<input name="cardHolderFullName" id={cardHolderFullNameInputId} type="text" />
-				</div>
-				<div>
-					<label htmlFor={cardNumberInputId}>Card Number</label>
-					<input name="cardNumber" id={cardNumberInputId} type="text" />
-				</div>
-				<div>
+		<Fragment>
+			<LiveCardPreview />
+			<form>
+				<fieldset>
+					<legend>Card Details</legend>
 					<div>
-						<label>Exp. Date (MM/YY)</label>
+						<label htmlFor={cardHolderFullNameInputId}>Cardholder Name</label>
+						<input
+							name="cardHolderFullName"
+							id={cardHolderFullNameInputId}
+							type="text"
+						/>
+					</div>
+					<div>
+						<label htmlFor={cardNumberInputId}>Card Number</label>
+						<input name="cardNumber" id={cardNumberInputId} type="text" />
+					</div>
+					<div>
 						<div>
+							<label>Exp. Date (MM/YY)</label>
 							<div>
-								<label htmlFor={cardExpirationMonthInputId}>Expiry Month</label>
-								<input
-									name="cardExpiryMonth"
-									id={cardExpirationMonthInputId}
-									type="number"
-								/>
-							</div>
-							<div>
-								<label htmlFor={cardExpirationYearInputId}>Expiry Year</label>
-								<input
-									name="cardExpiryYear"
-									id={cardExpirationYearInputId}
-									type="number"
-								/>
+								<div>
+									<label htmlFor={cardExpirationMonthInputId}>Expiry Month</label>
+									<input
+										name="cardExpiryMonth"
+										id={cardExpirationMonthInputId}
+										type="number"
+									/>
+								</div>
+								<div>
+									<label htmlFor={cardExpirationYearInputId}>Expiry Year</label>
+									<input
+										name="cardExpiryYear"
+										id={cardExpirationYearInputId}
+										type="number"
+									/>
+								</div>
 							</div>
 						</div>
+						<div>
+							<label htmlFor={cardCvcCodeInputId}>CVC</label>
+							<input name="cardCvcCode" id={cardCvcCodeInputId} type="number" />
+						</div>
 					</div>
-					<div>
-						<label htmlFor={cardCvcCodeInputId}>CVC</label>
-						<input name="cardCvcCode" id={cardCvcCodeInputId} type="number" />
-					</div>
-				</div>
-				<button type="submit">Confirm</button>
-			</fieldset>
-		</form>
+					<button type="submit">Confirm</button>
+				</fieldset>
+			</form>
+		</Fragment>
 	);
 };
