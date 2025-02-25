@@ -1,5 +1,7 @@
 import { type FC } from "react";
 
+import { CardDetailsForm } from "@features/card-details-form/ui";
+
 import { LiveCardPreview } from "@widgets/live-card-preview/ui";
 import { RootLayout } from "@widgets/layout/root/ui";
 
@@ -11,6 +13,7 @@ export const HomePage: FC = () => {
 			<Page>
 				<PageSection>
 					<LiveCardPreview />
+					<CardDetailsForm />
 					<PageTitle>Interactive card details form</PageTitle>
 				</PageSection>
 			</Page>
