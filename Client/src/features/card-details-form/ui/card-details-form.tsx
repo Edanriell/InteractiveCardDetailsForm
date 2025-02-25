@@ -1,7 +1,5 @@
 import { type FC, Fragment, useId } from "react";
 
-import { LiveCardPreview } from "@widgets/live-card-preview/ui";
-
 export const CardDetailsForm: FC = () => {
 	const cardHolderFullNameInputId = useId();
 	const cardNumberInputId = useId();
@@ -11,7 +9,6 @@ export const CardDetailsForm: FC = () => {
 
 	return (
 		<Fragment>
-			<LiveCardPreview />
 			<form>
 				<fieldset>
 					<legend>Card Details</legend>
