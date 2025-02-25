@@ -14,6 +14,7 @@ export const CardContainer = styled.div`
 		top: 50%;
 		left: 164rem;
 		transform: unset;
+		transform: translateY(-50%);
 	}
 `;
 
@@ -184,6 +185,11 @@ export const MagneticStripe = styled.div`
 	width: 100%;
 	height: 34rem;
 	background: #2f2f2f;
+
+	@media (width >= 1440px) {
+		height: 54rem;
+		top: 23rem;
+	}
 `;
 
 export const SignaturePanel = styled.div`
@@ -195,6 +201,12 @@ export const SignaturePanel = styled.div`
 	height: 29rem;
 	background: #adb5be;
 	transform: translateX(-50%);
+
+	@media (width >= 1440px) {
+		width: 361rem;
+		height: 38rem;
+		top: 101rem;
+	}
 `;
 
 export const Cvv = styled.div`
@@ -208,4 +220,21 @@ export const Cvv = styled.div`
 	right: 11rem;
 	top: 50%;
 	transform: translateY(-50%);
+
+	@media (width >= 1440px) {
+		font-size: 14rem;
+		right: 16rem;
+	}
+`;
+
+export const EndorsementPanel = styled.svg`
+	display: none;
+
+	@media (width >= 1440px) {
+		display: block;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 47rem;
+	}
 `;

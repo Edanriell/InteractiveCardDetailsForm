@@ -11,6 +11,7 @@ import {
 	CardNumber,
 	Circle,
 	Cvv,
+	EndorsementPanel,
 	HollowCircle,
 	Logotype,
 	MagneticStripe,
@@ -43,6 +44,50 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 						<span>0</span>
 					</Cvv>
 				</SignaturePanel>
+				<EndorsementPanel
+					width="186"
+					height="26"
+					viewBox="0 0 186 26"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<rect width="115" height="4" rx="2" fill="#ADB5BE" />
+					<rect x="121" width="22" height="4" rx="2" fill="#ADB5BE" />
+					<rect x="149" width="22" height="4" rx="2" fill="#ADB5BE" />
+					<rect x="177" width="9" height="4" rx="2" fill="#ADB5BE" />
+					<rect
+						width="115"
+						height="4"
+						rx="2"
+						transform="matrix(-1 0 0 1 186 22)"
+						fill="#ADB5BE"
+					/>
+					<rect
+						width="22"
+						height="4"
+						rx="2"
+						transform="matrix(-1 0 0 1 65 22)"
+						fill="#ADB5BE"
+					/>
+					<rect
+						width="22"
+						height="4"
+						rx="2"
+						transform="matrix(-1 0 0 1 37 22)"
+						fill="#ADB5BE"
+					/>
+					<rect
+						width="9"
+						height="4"
+						rx="2"
+						transform="matrix(-1 0 0 1 9 22)"
+						fill="#ADB5BE"
+					/>
+					<rect x="42" y="11" width="60" height="4" rx="2" fill="#ADB5BE" />
+					<rect x="14" y="11" width="22" height="4" rx="2" fill="#ADB5BE" />
+					<rect x="108" y="11" width="46" height="4" rx="2" fill="#ADB5BE" />
+					<rect x="160" y="11" width="9" height="4" rx="2" fill="#ADB5BE" />
+				</EndorsementPanel>
 			</CardBackFace>
 			<CardFrontFace>
 				<CardFrontFaceSmallBackground
@@ -174,7 +219,7 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 							y2="187.897"
 							gradientUnits="userSpaceOnUse"
 						>
-							<stop stop-color="#6348FE" />
+							<stop stopColor="#6348FE" />
 							<stop offset="1" stopColor="#610595" />
 						</linearGradient>
 					</defs>

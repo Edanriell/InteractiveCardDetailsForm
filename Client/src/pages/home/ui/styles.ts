@@ -3,10 +3,12 @@ import styled from "styled-components";
 export const Page = styled.main`
 	position: relative;
 	z-index: 2;
+	min-height: inherit;
 `;
 
 export const PageSection = styled.section`
 	position: relative;
+	min-height: inherit;
 `;
 
 export const PageTitle = styled.h1`
