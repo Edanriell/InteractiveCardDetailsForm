@@ -3,26 +3,46 @@ import { type FC } from "react";
 import {
 	CardBackFace,
 	CardContainer,
+	CardExpirationDate,
 	CardFrontFace,
-	CvvPanel,
+	CardHolderFullName,
+	CardNumber,
+	Circle,
+	Cvv,
+	HollowCircle,
+	Logotype,
 	MagneticStripe,
 	SignaturePanel
 } from "./styles";
 
-export const LiveCardPreview: FC = () => {
+type LiveCardPreviewProps = {
+	cardholderFullName: string;
+	cardNumber: string;
+	cardExpiryMonth: string;
+	cardExpiryYear: string;
+	cardCvcCode: string;
+};
+
+export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
+	cardholderFullName,
+	cardNumber,
+	cardExpiryMonth,
+	cardExpiryYear,
+	cardCvcCode
+}) => {
 	return (
 		<CardContainer>
-			<CardFrontFace>
+			<CardBackFace>
 				<MagneticStripe></MagneticStripe>
 				<SignaturePanel>
-					<CvvPanel>
+					<Cvv>
 						<span>0</span>
 						<span>0</span>
 						<span>0</span>
-					</CvvPanel>
+					</Cvv>
 				</SignaturePanel>
-			</CardFrontFace>
-			<CardBackFace>
+			</CardBackFace>
+			<CardFrontFace>
 				<svg
 					width="285"
 					height="157"
@@ -157,7 +177,37 @@ export const LiveCardPreview: FC = () => {
 						</linearGradient>
 					</defs>
 				</svg>
-			</CardBackFace>
+				<Logotype>
+					<Circle />
+					<HollowCircle />
+				</Logotype>
+				<CardNumber>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+					<span>0</span>
+				</CardNumber>
+				<CardHolderFullName>
+					<span>Jane Appleseed</span>
+				</CardHolderFullName>
+				<CardExpirationDate>
+					<span>00</span>
+					<span>/</span>
+					<span>00</span>
+				</CardExpirationDate>
+			</CardFrontFace>
 		</CardContainer>
 	);
 };

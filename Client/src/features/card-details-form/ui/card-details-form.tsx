@@ -3,8 +3,8 @@ import { type FC, useId } from "react";
 export const CardDetailsForm: FC = () => {
 	const cardHolderFullNameInputId = useId();
 	const cardNumberInputId = useId();
-	const cardExpiryMonthInputId = useId();
-	const cardExpiryYearInputId = useId();
+	const cardExpirationMonthInputId = useId();
+	const cardExpirationYearInputId = useId();
 	const cardCvcCodeInputId = useId();
 
 	return (
@@ -24,18 +24,18 @@ export const CardDetailsForm: FC = () => {
 						<label>Exp. Date (MM/YY)</label>
 						<div>
 							<div>
-								<label htmlFor={cardExpiryMonthInputId}>Expiry Month</label>
+								<label htmlFor={cardExpirationMonthInputId}>Expiry Month</label>
 								<input
 									name="cardExpiryMonth"
-									id={cardExpiryMonthInputId}
+									id={cardExpirationMonthInputId}
 									type="number"
 								/>
 							</div>
 							<div>
-								<label htmlFor={cardExpiryYearInputId}>Expiry Year</label>
+								<label htmlFor={cardExpirationYearInputId}>Expiry Year</label>
 								<input
 									name="cardExpiryYear"
-									id={cardExpiryYearInputId}
+									id={cardExpirationYearInputId}
 									type="number"
 								/>
 							</div>
