@@ -35,6 +35,12 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 	cardExpiryYear = "00",
 	cardCvcCode = "000"
 }) => {
+	const zeroString = (maxLength: number): string => {
+		if (maxLength === 0) return "";
+
+		return "0".repeat(maxLength);
+	};
+
 	return (
 		<CardContainer>
 			<CardBackFace>
@@ -44,6 +50,11 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 						{cardCvcCode.split("").map((char) => (
 							<span>{char}</span>
 						))}
+						{zeroString(3 - cardCvcCode.length)
+							.split("")
+							.map((char) => (
+								<span>{char}</span>
+							))}
 					</Cvv>
 				</SignaturePanel>
 				<EndorsementPanel
@@ -362,6 +373,11 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 					{cardNumber.split("").map((char) => (
 						<span>{char}</span>
 					))}
+					{zeroString(16 - cardNumber.length)
+						.split("")
+						.map((char) => (
+							<span>{char}</span>
+						))}
 				</CardNumber>
 				<CardHolderFullName>
 					{cardHolderFullName.split("").map((char) => (
@@ -373,12 +389,22 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 						{cardExpiryMonth.split("").map((char) => (
 							<span>{char}</span>
 						))}
+						{zeroString(2 - cardExpiryMonth.length)
+							.split("")
+							.map((char) => (
+								<span>{char}</span>
+							))}
 					</CardExpirationMonth>
 					<span>/</span>
 					<CardExpirationYear>
 						{cardExpiryYear.split("").map((char) => (
 							<span>{char}</span>
 						))}
+						{zeroString(2 - cardExpiryYear.length)
+							.split("")
+							.map((char) => (
+								<span>{char}</span>
+							))}
 					</CardExpirationYear>
 				</CardExpirationDate>
 			</CardFrontFace>
