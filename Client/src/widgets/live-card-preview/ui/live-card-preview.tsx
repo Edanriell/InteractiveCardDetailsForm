@@ -4,6 +4,8 @@ import {
 	CardBackFace,
 	CardContainer,
 	CardExpirationDate,
+	CardExpirationMonth,
+	CardExpirationYear,
 	CardFrontFace,
 	CardFrontFaceLargeBackground,
 	CardFrontFaceSmallBackground,
@@ -19,19 +21,19 @@ import {
 } from "./styles";
 
 type LiveCardPreviewProps = {
-	cardholderFullName: string;
-	cardNumber: string;
-	cardExpiryMonth: string;
-	cardExpiryYear: string;
-	cardCvcCode: string;
+	cardHolderFullName?: string;
+	cardNumber?: string;
+	cardExpiryMonth?: string;
+	cardExpiryYear?: string;
+	cardCvcCode?: string;
 };
 
 export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
-	cardholderFullName,
-	cardNumber,
-	cardExpiryMonth,
-	cardExpiryYear,
-	cardCvcCode
+	cardHolderFullName = "Jane Appleseed",
+	cardNumber = "0000000000000000",
+	cardExpiryMonth = "00",
+	cardExpiryYear = "00",
+	cardCvcCode = "000"
 }) => {
 	return (
 		<CardContainer>
@@ -39,9 +41,9 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 				<MagneticStripe></MagneticStripe>
 				<SignaturePanel>
 					<Cvv>
-						<span>0</span>
-						<span>0</span>
-						<span>0</span>
+						{cardCvcCode.split("").map((char) => (
+							<span>{char}</span>
+						))}
 					</Cvv>
 				</SignaturePanel>
 				<EndorsementPanel
@@ -357,30 +359,27 @@ export const LiveCardPreview: FC<LiveCardPreviewProps> = ({
 					<HollowCircle />
 				</Logotype>
 				<CardNumber>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
-					<span>0</span>
+					{cardNumber.split("").map((char) => (
+						<span>{char}</span>
+					))}
 				</CardNumber>
 				<CardHolderFullName>
-					<span>Jane Appleseed</span>
+					{cardHolderFullName.split("").map((char) => (
+						<span>{char}</span>
+					))}
 				</CardHolderFullName>
 				<CardExpirationDate>
-					<span>00</span>
+					<CardExpirationMonth>
+						{cardExpiryMonth.split("").map((char) => (
+							<span>{char}</span>
+						))}
+					</CardExpirationMonth>
 					<span>/</span>
-					<span>00</span>
+					<CardExpirationYear>
+						{cardExpiryYear.split("").map((char) => (
+							<span>{char}</span>
+						))}
+					</CardExpirationYear>
 				</CardExpirationDate>
 			</CardFrontFace>
 		</CardContainer>
