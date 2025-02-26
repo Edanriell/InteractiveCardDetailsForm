@@ -157,6 +157,14 @@ export const CardExpirationDate = styled.div`
 	}
 `;
 
+export const CardExpirationMonth = styled.div`
+	display: inline-block;
+`;
+
+export const CardExpirationYear = styled.div`
+	display: inline-block;
+`;
+
 export const CardBackFace = styled.div`
 	position: absolute;
 	top: 0;
