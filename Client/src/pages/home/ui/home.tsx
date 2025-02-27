@@ -12,9 +12,9 @@ export const HomePage: FC = () => {
 		<RootLayout>
 			<Page>
 				<PageSection>
+					<PageTitle>Interactive card details form</PageTitle>
 					<LiveCardPreview />
 					<CardDetailsForm />
-					<PageTitle>Interactive card details form</PageTitle>
 				</PageSection>
 			</Page>
 		</RootLayout>
