@@ -43,10 +43,10 @@ export const CardDetailsForm: FC = () => {
 						placeholder="e.g. 1234 5678 9123 0000"
 					/>
 				</FormField>
-				<FormFieldGroup>
+				<FormFieldGroup width="100%">
 					<FormField>
 						<FormInputLabel>Exp. Date (MM/YY)</FormInputLabel>
-						<FormFieldGroup style={{ width: "152rem" }}>
+						<FormFieldGroup gap="11rem">
 							<FormField>
 								<FormInputSrOnlyLabel htmlFor={cardExpirationMonthInputId}>
 									Expiry Month

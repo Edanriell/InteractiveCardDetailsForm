@@ -7,6 +7,12 @@ export const Form = styled.form`
 	transform: translate(-50%, -50%);
 	max-width: 327rem;
 	width: 100%;
+
+	@media (width >= 1440px) {
+		max-width: 381rem;
+		top: 50%;
+		left: 70%;
+	}
 `;
 
 export const Fieldset = styled.fieldset`
@@ -16,6 +22,10 @@ export const Fieldset = styled.fieldset`
 	display: flex;
 	flex-direction: column;
 	row-gap: 20rem;
+
+	@media (width >= 1440px) {
+		row-gap: 26rem;
+	}
 `;
 
 export const Legend = styled.legend`
@@ -37,10 +47,21 @@ export const FormField = styled.div`
 	row-gap: 9rem;
 `;
 
-export const FormFieldGroup = styled.div`
+type FormFieldGroupProps = {
+	gap?: string;
+	width?: string;
+};
+
+export const FormFieldGroup = styled.div<FormFieldGroupProps>`
 	display: flex;
 	flex-direction: row;
-	column-gap: 11rem;
+	column-gap: ${({ gap }) => gap || "11rem"};
+	width: ${({ width }) => width || "152rem"};
+
+	@media (min-width: 1440px) {
+		width: ${({ width }) => width || "170rem"};
+		column-gap: ${({ gap }) => gap || "20rem"};
+	}
 `;
 
 export const FormInputLabel = styled.label`
@@ -75,13 +96,18 @@ export const FormInput = styled.input`
 	font-weight: 500;
 	font-size: 18rem;
 	color: var(--deep-violet);
+	background: var(--white);
 
 	&::placeholder {
 		opacity: 0.25;
 	}
 `;
 
-export const Button = styled.button`
+type ButtonProps = {
+	marginTop?: string;
+};
+
+export const Button = styled.button<ButtonProps>`
 	border-radius: 8rem;
 	width: 100%;
 	height: 53rem;
@@ -92,5 +118,9 @@ export const Button = styled.button`
 	color: var(--white);
 	text-align: center;
 	cursor: pointer;
-	margin-top: 8rem;
+	margin-top: ${({ marginTop }) => marginTop || "8rem"};
+
+	@media (width >= 1440px) {
+		margin-top: ${({ marginTop }) => marginTop || "14rem"};
+	}
 `;
