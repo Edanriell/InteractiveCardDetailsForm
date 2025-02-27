@@ -11,7 +11,8 @@ export const Form = styled.form`
 	@media (width >= 1440px) {
 		max-width: 381rem;
 		top: 50%;
-		left: 70%;
+		left: 57.8%;
+		transform: translate(0, -50%);
 	}
 `;
 
