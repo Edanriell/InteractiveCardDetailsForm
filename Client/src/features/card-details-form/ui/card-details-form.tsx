@@ -1,9 +1,9 @@
 import { type FC, useId } from "react";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { formatCardDetails } from "../lib";
+import { cardDetailsFormSchema } from "../model";
 
 import {
 	Button,
@@ -22,16 +22,8 @@ export type CardDetailsFormData = {
 	cardNumber: string;
 	cardExpiryMonth: number;
 	cardExpiryYear: number;
-	cardCvcCode: number;
+	cardCvcCode: string;
 };
-
-const schema = yup.object({
-	cardHolderFullName: yup.string().required(),
-	cardNumber: yup.string().required(),
-	cardExpiryMonth: yup.number().positive().max(12).required(),
-	cardExpiryYear: yup.number().positive().min(25).max(99).required(),
-	cardCvcCode: yup.number().positive().required()
-});
 
 export const CardDetailsForm: FC = () => {
 	const cardHolderFullNameInputId = useId();
@@ -44,7 +36,7 @@ export const CardDetailsForm: FC = () => {
 		register,
 		handleSubmit,
 		formState: { errors }
-	} = useForm<CardDetailsFormData>({ resolver: yupResolver(schema) });
+	} = useForm<CardDetailsFormData>({ resolver: yupResolver(cardDetailsFormSchema) });
 
 	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {
 		const formattedCardDetailsFormData = formatCardDetails(data);
