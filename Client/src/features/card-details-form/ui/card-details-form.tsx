@@ -15,7 +15,7 @@ import {
 	Legend
 } from "./styles";
 
-type FormData = {
+type CardDetailsFormData = {
 	cardHolderFullName: string;
 	cardNumber: string;
 	cardExpiryMonth: number;
@@ -42,10 +42,9 @@ export const CardDetailsForm: FC = () => {
 		register,
 		handleSubmit,
 		formState: { errors }
-	} = useForm<FormData>({ resolver: yupResolver(schema) });
+	} = useForm<CardDetailsFormData>({ resolver: yupResolver(schema) });
 
-	const onSubmit = (data) => {
-		console.log("submit");
+	const onCardDetailsFormSubmit = (data) => {
 		console.log(data);
 	};
 
