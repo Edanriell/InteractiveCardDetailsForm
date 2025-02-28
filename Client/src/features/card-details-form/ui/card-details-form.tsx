@@ -1,4 +1,9 @@
 import { type FC, useId } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { formatCardDetails } from "../lib";
+import { cardDetailsFormSchema } from "../model";
 
 import {
 	Button,
@@ -12,6 +17,14 @@ import {
 	Legend
 } from "./styles";
 
+export type CardDetailsFormData = {
+	cardHolderFullName: string;
+	cardNumber: string;
+	cardExpiryMonth: number;
+	cardExpiryYear: number;
+	cardCvcCode: string;
+};
+
 export const CardDetailsForm: FC = () => {
 	const cardHolderFullNameInputId = useId();
 	const cardNumberInputId = useId();
@@ -19,8 +32,20 @@ export const CardDetailsForm: FC = () => {
 	const cardExpirationYearInputId = useId();
 	const cardCvcCodeInputId = useId();
 
+	const {
+		register,
+		handleSubmit,
+		formState: { errors }
+	} = useForm<CardDetailsFormData>({ resolver: yupResolver(cardDetailsFormSchema) });
+
+	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {
+		const formattedCardDetailsFormData = formatCardDetails(data);
+
+		console.log(formattedCardDetailsFormData);
+	};
+
 	return (
-		<Form>
+		<Form onSubmit={handleSubmit(onCardDetailsFormSubmit)}>
 			<Fieldset>
 				<Legend>Card Details</Legend>
 				<FormField>
@@ -28,6 +53,7 @@ export const CardDetailsForm: FC = () => {
 						Cardholder Name
 					</FormInputLabel>
 					<FormInput
+						{...register("cardHolderFullName")}
 						name="cardHolderFullName"
 						id={cardHolderFullNameInputId}
 						type="text"
@@ -37,6 +63,7 @@ export const CardDetailsForm: FC = () => {
 				<FormField>
 					<FormInputLabel htmlFor={cardNumberInputId}>Card Number</FormInputLabel>
 					<FormInput
+						{...register("cardNumber")}
 						name="cardNumber"
 						id={cardNumberInputId}
 						type="text"
@@ -52,6 +79,7 @@ export const CardDetailsForm: FC = () => {
 									Expiry Month
 								</FormInputSrOnlyLabel>
 								<FormInput
+									{...register("cardExpiryMonth")}
 									name="cardExpiryMonth"
 									id={cardExpirationMonthInputId}
 									type="number"
@@ -63,6 +91,7 @@ export const CardDetailsForm: FC = () => {
 									Expiry Year
 								</FormInputSrOnlyLabel>
 								<FormInput
+									{...register("cardExpiryYear")}
 									name="cardExpiryYear"
 									id={cardExpirationYearInputId}
 									type="number"
@@ -74,6 +103,7 @@ export const CardDetailsForm: FC = () => {
 					<FormField>
 						<FormInputLabel htmlFor={cardCvcCodeInputId}>CVC</FormInputLabel>
 						<FormInput
+							{...register("cardCvcCode")}
 							name="cardCvcCode"
 							id={cardCvcCodeInputId}
 							type="number"
