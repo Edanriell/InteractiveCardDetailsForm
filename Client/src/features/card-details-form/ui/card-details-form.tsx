@@ -3,6 +3,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { formatCardDetails } from "../lib";
+
 import {
 	Button,
 	Fieldset,
@@ -15,7 +17,7 @@ import {
 	Legend
 } from "./styles";
 
-type CardDetailsFormData = {
+export type CardDetailsFormData = {
 	cardHolderFullName: string;
 	cardNumber: string;
 	cardExpiryMonth: number;
@@ -44,12 +46,14 @@ export const CardDetailsForm: FC = () => {
 		formState: { errors }
 	} = useForm<CardDetailsFormData>({ resolver: yupResolver(schema) });
 
-	const onCardDetailsFormSubmit = (data) => {
-		console.log(data);
+	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {
+		const formattedCardDetailsFormData = formatCardDetails(data);
+
+		console.log(formattedCardDetailsFormData);
 	};
 
 	return (
-		<Form onSubmit={handleSubmit(onSubmit)}>
+		<Form onSubmit={handleSubmit(onCardDetailsFormSubmit)}>
 			<Fieldset>
 				<Legend>Card Details</Legend>
 				<FormField>
