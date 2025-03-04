@@ -99,6 +99,10 @@ export const FormInput = styled(motion.input)`
 	font-size: 18rem;
 	color: var(--deep-violet);
 	background: var(--white);
+	outline: none;
+	background-image: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff);
+	background-origin: border-box;
+	background-clip: padding-box, border-box;
 
 	&::placeholder {
 		opacity: 0.25;

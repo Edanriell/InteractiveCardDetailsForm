@@ -58,8 +58,25 @@ export const CardDetailsForm: FC = () => {
 						{...register("cardHolderFullName")}
 						animate={
 							errors.cardHolderFullName
-								? { borderColor: "#ff5050" }
-								: { borderColor: "#dfdee0" }
+								? {
+										borderColor: "#ff5050",
+										backgroundImage:
+											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+									}
+								: {
+										borderColor: "#dfdee0",
+										backgroundImage:
+											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+									}
+						}
+						whileFocus={
+							errors.cardHolderFullName
+								? {}
+								: {
+										borderColor: "#ffffff00",
+										backgroundImage:
+											"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
+									}
 						}
 						name="cardHolderFullName"
 						id={cardHolderFullNameInputId}
@@ -86,8 +103,25 @@ export const CardDetailsForm: FC = () => {
 						{...register("cardNumber")}
 						animate={
 							errors.cardHolderFullName
-								? { borderColor: "#ff5050" }
-								: { borderColor: "#dfdee0" }
+								? {
+										borderColor: "#ff5050",
+										backgroundImage:
+											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+									}
+								: {
+										borderColor: "#dfdee0",
+										backgroundImage:
+											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+									}
+						}
+						whileFocus={
+							errors.cardHolderFullName
+								? {}
+								: {
+										borderColor: "#ffffff00",
+										backgroundImage:
+											"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
+									}
 						}
 						name="cardNumber"
 						id={cardNumberInputId}
@@ -120,8 +154,25 @@ export const CardDetailsForm: FC = () => {
 									{...register("cardExpiryMonth")}
 									animate={
 										errors.cardHolderFullName
-											? { borderColor: "#ff5050" }
-											: { borderColor: "#dfdee0" }
+											? {
+													borderColor: "#ff5050",
+													backgroundImage:
+														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+												}
+											: {
+													borderColor: "#dfdee0",
+													backgroundImage:
+														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+												}
+									}
+									whileFocus={
+										errors.cardHolderFullName
+											? {}
+											: {
+													borderColor: "#ffffff00",
+													backgroundImage:
+														"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
+												}
 									}
 									name="cardExpiryMonth"
 									id={cardExpirationMonthInputId}
@@ -150,8 +201,25 @@ export const CardDetailsForm: FC = () => {
 									{...register("cardExpiryYear")}
 									animate={
 										errors.cardHolderFullName
-											? { borderColor: "#ff5050" }
-											: { borderColor: "#dfdee0" }
+											? {
+													borderColor: "#ff5050",
+													backgroundImage:
+														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+												}
+											: {
+													borderColor: "#dfdee0",
+													backgroundImage:
+														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+												}
+									}
+									whileFocus={
+										errors.cardHolderFullName
+											? {}
+											: {
+													borderColor: "#ffffff00",
+													backgroundImage:
+														"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
+												}
 									}
 									name="cardExpiryYear"
 									id={cardExpirationYearInputId}
@@ -180,8 +248,25 @@ export const CardDetailsForm: FC = () => {
 							{...register("cardCvcCode")}
 							animate={
 								errors.cardHolderFullName
-									? { borderColor: "#ff5050" }
-									: { borderColor: "#dfdee0" }
+									? {
+											borderColor: "#ff5050",
+											backgroundImage:
+												"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+										}
+									: {
+											borderColor: "#dfdee0",
+											backgroundImage:
+												"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
+										}
+							}
+							whileFocus={
+								errors.cardHolderFullName
+									? {}
+									: {
+											borderColor: "#ffffff00",
+											backgroundImage:
+												"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
+										}
 							}
 							name="cardCvcCode"
 							id={cardCvcCodeInputId}
