@@ -7,6 +7,7 @@ import { cardDetailsFormSchema } from "../model";
 
 import {
 	Button,
+	ErrorMessage,
 	Fieldset,
 	Form,
 	FormField,
@@ -58,7 +59,13 @@ export const CardDetailsForm: FC = () => {
 						id={cardHolderFullNameInputId}
 						type="text"
 						placeholder="e.g. Jane Appleseed"
+						aria-invalid={errors.cardHolderFullName ? "true" : "false"}
 					/>
+					{errors.cardHolderFullName && (
+						<ErrorMessage role="alert">
+							{errors.cardHolderFullName.message}
+						</ErrorMessage>
+					)}
 				</FormField>
 				<FormField>
 					<FormInputLabel htmlFor={cardNumberInputId}>Card Number</FormInputLabel>
@@ -68,7 +75,11 @@ export const CardDetailsForm: FC = () => {
 						id={cardNumberInputId}
 						type="text"
 						placeholder="e.g. 1234 5678 9123 0000"
+						aria-invalid={errors.cardNumber ? "true" : "false"}
 					/>
+					{errors.cardNumber && (
+						<ErrorMessage role="alert">{errors.cardNumber.message}</ErrorMessage>
+					)}
 				</FormField>
 				<FormFieldGroup width="100%">
 					<FormField>
@@ -84,7 +95,13 @@ export const CardDetailsForm: FC = () => {
 									id={cardExpirationMonthInputId}
 									type="number"
 									placeholder="MM"
+									aria-invalid={errors.cardExpiryMonth ? "true" : "false"}
 								/>
+								{errors.cardExpiryMonth && (
+									<ErrorMessage role="alert">
+										{errors.cardExpiryMonth.message}
+									</ErrorMessage>
+								)}
 							</FormField>
 							<FormField>
 								<FormInputSrOnlyLabel htmlFor={cardExpirationYearInputId}>
@@ -96,7 +113,13 @@ export const CardDetailsForm: FC = () => {
 									id={cardExpirationYearInputId}
 									type="number"
 									placeholder="YY"
+									aria-invalid={errors.cardExpiryYear ? "true" : "false"}
 								/>
+								{errors.cardExpiryYear && (
+									<ErrorMessage role="alert">
+										{errors.cardExpiryYear.message}
+									</ErrorMessage>
+								)}
 							</FormField>
 						</FormFieldGroup>
 					</FormField>
@@ -108,7 +131,11 @@ export const CardDetailsForm: FC = () => {
 							id={cardCvcCodeInputId}
 							type="number"
 							placeholder="e.g. 123"
+							aria-invalid={errors.cardExpiryYear ? "true" : "false"}
 						/>
+						{errors.cardCvcCode && (
+							<ErrorMessage role="alert">{errors.cardCvcCode.message}</ErrorMessage>
+						)}
 					</FormField>
 				</FormFieldGroup>
 				<Button type="submit">Confirm</Button>

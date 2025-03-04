@@ -3,13 +3,13 @@ import * as yup from "yup";
 export const cardDetailsFormSchema = yup.object({
 	cardHolderFullName: yup
 		.string()
-		.required("Cardholder name is required")
-		.min(2, "Name must be at least 2 characters")
-		.matches(/^[a-zA-Z\s]+$/, "Name can only contain letters and spaces"),
+		.required("Can’t be blank")
+		.min(8, "Cardholder full name must be at least 8 characters")
+		.matches(/^[a-zA-Z\s]+$/, "Cardholder full name can only contain letters and spaces"),
 
 	cardNumber: yup
 		.string()
-		.required("Card number is required")
+		.required("Can’t be blank")
 		.matches(/^[0-9]{16}$/, "Card number must be exactly 16 digits")
 		.test("luhn", "Invalid card number", (value) => {
 			if (!value) return false;
@@ -27,14 +27,14 @@ export const cardDetailsFormSchema = yup.object({
 
 	cardExpiryMonth: yup
 		.number()
-		.typeError("Month must be a number")
+		.typeError("Can’t be blank")
 		.required("Expiration month is required")
 		.min(1, "Invalid month")
 		.max(12, "Invalid month"),
 
 	cardExpiryYear: yup
 		.number()
-		.typeError("Year must be a number")
+		.typeError("Can’t be blank")
 		.required("Expiration year is required")
 		.min(24, "Card is expired")
 		.max(99, "Invalid year")
@@ -50,6 +50,6 @@ export const cardDetailsFormSchema = yup.object({
 
 	cardCvcCode: yup
 		.string()
-		.required("CVC is required")
+		.required("Can’t be blank")
 		.matches(/^[0-9]{3,4}$/, "CVC must be 3 or 4 digits")
 });
