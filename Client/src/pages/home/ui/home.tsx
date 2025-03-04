@@ -16,7 +16,10 @@ export const HomePage: FC = () => {
 			<Page>
 				<PageSection>
 					<PageTitle>Interactive card details form</PageTitle>
-					<LiveCardPreview />
+					<LiveCardPreview>
+						<LiveCardPreview.CardFront />
+						<LiveCardPreview.CardBack />
+					</LiveCardPreview>
 					<CardDetailsForm />
 				</PageSection>
 			</Page>
