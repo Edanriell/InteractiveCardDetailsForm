@@ -7,6 +7,7 @@ import { cardDetailsFormSchema } from "../model";
 
 import {
 	Button,
+	ErrorMessage,
 	Fieldset,
 	Form,
 	FormField,
@@ -61,7 +62,9 @@ export const CardDetailsForm: FC = () => {
 						aria-invalid={errors.cardHolderFullName ? "true" : "false"}
 					/>
 					{errors.cardHolderFullName && (
-						<p role="alert">{errors.cardHolderFullName.message}</p>
+						<ErrorMessage role="alert">
+							{errors.cardHolderFullName.message}
+						</ErrorMessage>
 					)}
 				</FormField>
 				<FormField>
@@ -74,7 +77,9 @@ export const CardDetailsForm: FC = () => {
 						placeholder="e.g. 1234 5678 9123 0000"
 						aria-invalid={errors.cardNumber ? "true" : "false"}
 					/>
-					{errors.cardNumber && <p role="alert">{errors.cardNumber.message}</p>}
+					{errors.cardNumber && (
+						<ErrorMessage role="alert">{errors.cardNumber.message}</ErrorMessage>
+					)}
 				</FormField>
 				<FormFieldGroup width="100%">
 					<FormField>
@@ -93,7 +98,9 @@ export const CardDetailsForm: FC = () => {
 									aria-invalid={errors.cardExpiryMonth ? "true" : "false"}
 								/>
 								{errors.cardExpiryMonth && (
-									<p role="alert">{errors.cardExpiryMonth.message}</p>
+									<ErrorMessage role="alert">
+										{errors.cardExpiryMonth.message}
+									</ErrorMessage>
 								)}
 							</FormField>
 							<FormField>
@@ -109,7 +116,9 @@ export const CardDetailsForm: FC = () => {
 									aria-invalid={errors.cardExpiryYear ? "true" : "false"}
 								/>
 								{errors.cardExpiryYear && (
-									<p role="alert">{errors.cardExpiryYear.message}</p>
+									<ErrorMessage role="alert">
+										{errors.cardExpiryYear.message}
+									</ErrorMessage>
 								)}
 							</FormField>
 						</FormFieldGroup>
@@ -124,7 +133,9 @@ export const CardDetailsForm: FC = () => {
 							placeholder="e.g. 123"
 							aria-invalid={errors.cardExpiryYear ? "true" : "false"}
 						/>
-						{errors.cardCvcCode && <p role="alert">{errors.cardCvcCode.message}</p>}
+						{errors.cardCvcCode && (
+							<ErrorMessage role="alert">{errors.cardCvcCode.message}</ErrorMessage>
+						)}
 					</FormField>
 				</FormFieldGroup>
 				<Button type="submit">Confirm</Button>

@@ -125,3 +125,11 @@ export const Button = styled.button<ButtonProps>`
 		margin-top: ${({ marginTop }) => marginTop || "14rem"};
 	}
 `;
+
+export const ErrorMessage = styled.p`
+	font-family: var(--font-family);
+	font-weight: 500;
+	font-size: 12rem;
+	color: var(--red);
+	margin-top: -1rem;
+`;
