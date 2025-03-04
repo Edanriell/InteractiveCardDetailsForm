@@ -1,4 +1,4 @@
-import { ComponentType, useEffect, useRef, useState } from "react";
+import { type ComponentType, useEffect, useRef, useState } from "react";
 import { motion, useSpring } from "motion/react";
 
 import { clamp } from "../functions";
@@ -26,7 +26,7 @@ export const withCursorFollow = <T extends object>(
 		glowColor = "255,255,255",
 		customGlow,
 		alwaysHover,
-		...props
+		...rest
 	}: WithCursorFollowProps & T) => {
 		const containerRef = useRef<HTMLDivElement | null>(null);
 		const [isHovering, setIsHovering] = useState<boolean>(alwaysHover ?? false);
@@ -115,7 +115,7 @@ export const withCursorFollow = <T extends object>(
 						zIndex: 5
 					}}
 				/>
-				<Component width={width} height={height} {...(props as T)} />
+				<Component width={width} height={height} {...(rest as T)} />
 			</div>
 		);
 	};

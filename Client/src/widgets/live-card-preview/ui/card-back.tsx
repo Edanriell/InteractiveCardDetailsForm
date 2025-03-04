@@ -1,12 +1,12 @@
-import { FC } from "react";
+import { type ComponentPropsWithoutRef, type FC } from "react";
 
 import { CardBackFace, Cvv, EndorsementPanel, MagneticStripe, SignaturePanel } from "./styles.ts";
 
 type CardBackFaceProps = {
 	cardCvcCode?: string;
-};
+} & ComponentPropsWithoutRef<"div">;
 
-export const CardBack: FC<CardBackFaceProps> = ({ cardCvcCode = "000" }) => {
+export const CardBack: FC<CardBackFaceProps> = ({ cardCvcCode = "000", ...rest }) => {
 	const zeroString = (maxLength: number): string => {
 		if (maxLength === 0) return "";
 
@@ -14,7 +14,7 @@ export const CardBack: FC<CardBackFaceProps> = ({ cardCvcCode = "000" }) => {
 	};
 
 	return (
-		<CardBackFace>
+		<CardBackFace {...rest}>
 			<MagneticStripe></MagneticStripe>
 			<SignaturePanel>
 				<Cvv>
