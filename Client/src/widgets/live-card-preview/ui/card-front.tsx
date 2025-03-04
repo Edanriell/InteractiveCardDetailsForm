@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { type ComponentPropsWithoutRef, type FC } from "react";
 
 import {
 	CardExpirationDate,
@@ -19,13 +19,14 @@ type CardFrontProps = {
 	cardNumber?: string;
 	cardExpiryMonth?: string;
 	cardExpiryYear?: string;
-};
+} & ComponentPropsWithoutRef<"div">;
 
 export const CardFront: FC<CardFrontProps> = ({
 	cardHolderFullName = "Jane Appleseed",
 	cardNumber = "0000000000000000",
 	cardExpiryMonth = "00",
-	cardExpiryYear = "00"
+	cardExpiryYear = "00",
+	...rest
 }) => {
 	const zeroString = (maxLength: number): string => {
 		if (maxLength === 0) return "";
@@ -34,7 +35,7 @@ export const CardFront: FC<CardFrontProps> = ({
 	};
 
 	return (
-		<CardFrontFace>
+		<CardFrontFace {...rest}>
 			<CardFrontFaceSmallBackground
 				width="285"
 				height="157"

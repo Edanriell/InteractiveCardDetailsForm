@@ -20,7 +20,9 @@ export const HomePage: FC = () => {
 					<PageTitle>Interactive card details form</PageTitle>
 					<LiveCardPreview>
 						<ThreeDCardFrontWithCursorFollow width="447rem" height="245rem" />
-						<ThreeDCardBackWithCursorFollow width="447rem" height="245rem" />
+						<div style={{ marginTop: "37rem", marginLeft: "94rem" }}>
+							<ThreeDCardBackWithCursorFollow width="447rem" height="245rem" />
+						</div>
 					</LiveCardPreview>
 					<CardDetailsForm />
 				</PageSection>
