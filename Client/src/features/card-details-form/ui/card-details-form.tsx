@@ -1,6 +1,7 @@
 import { type FC, useId } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AnimatePresence } from "motion/react";
 
 import { formatCardDetails } from "../lib";
 import { cardDetailsFormSchema } from "../model";
@@ -61,11 +62,18 @@ export const CardDetailsForm: FC = () => {
 						placeholder="e.g. Jane Appleseed"
 						aria-invalid={errors.cardHolderFullName ? "true" : "false"}
 					/>
-					{errors.cardHolderFullName && (
-						<ErrorMessage role="alert">
-							{errors.cardHolderFullName.message}
-						</ErrorMessage>
-					)}
+					<AnimatePresence>
+						{errors.cardHolderFullName && (
+							<ErrorMessage
+								exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
+								animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
+								layout
+								role="alert"
+							>
+								{errors.cardHolderFullName.message}
+							</ErrorMessage>
+						)}
+					</AnimatePresence>
 				</FormField>
 				<FormField>
 					<FormInputLabel htmlFor={cardNumberInputId}>Card Number</FormInputLabel>
@@ -77,9 +85,18 @@ export const CardDetailsForm: FC = () => {
 						placeholder="e.g. 1234 5678 9123 0000"
 						aria-invalid={errors.cardNumber ? "true" : "false"}
 					/>
-					{errors.cardNumber && (
-						<ErrorMessage role="alert">{errors.cardNumber.message}</ErrorMessage>
-					)}
+					<AnimatePresence>
+						{errors.cardNumber && (
+							<ErrorMessage
+								exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
+								animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
+								layout
+								role="alert"
+							>
+								{errors.cardNumber.message}
+							</ErrorMessage>
+						)}
+					</AnimatePresence>
 				</FormField>
 				<FormFieldGroup width="100%">
 					<FormField>
@@ -97,11 +114,18 @@ export const CardDetailsForm: FC = () => {
 									placeholder="MM"
 									aria-invalid={errors.cardExpiryMonth ? "true" : "false"}
 								/>
-								{errors.cardExpiryMonth && (
-									<ErrorMessage role="alert">
-										{errors.cardExpiryMonth.message}
-									</ErrorMessage>
-								)}
+								<AnimatePresence>
+									{errors.cardExpiryMonth && (
+										<ErrorMessage
+											exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
+											animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
+											layout
+											role="alert"
+										>
+											{errors.cardExpiryMonth.message}
+										</ErrorMessage>
+									)}
+								</AnimatePresence>
 							</FormField>
 							<FormField>
 								<FormInputSrOnlyLabel htmlFor={cardExpirationYearInputId}>
@@ -115,11 +139,18 @@ export const CardDetailsForm: FC = () => {
 									placeholder="YY"
 									aria-invalid={errors.cardExpiryYear ? "true" : "false"}
 								/>
-								{errors.cardExpiryYear && (
-									<ErrorMessage role="alert">
-										{errors.cardExpiryYear.message}
-									</ErrorMessage>
-								)}
+								<AnimatePresence>
+									{errors.cardExpiryYear && (
+										<ErrorMessage
+											exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
+											animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
+											layout
+											role="alert"
+										>
+											{errors.cardExpiryYear.message}
+										</ErrorMessage>
+									)}
+								</AnimatePresence>
 							</FormField>
 						</FormFieldGroup>
 					</FormField>
@@ -133,9 +164,18 @@ export const CardDetailsForm: FC = () => {
 							placeholder="e.g. 123"
 							aria-invalid={errors.cardExpiryYear ? "true" : "false"}
 						/>
-						{errors.cardCvcCode && (
-							<ErrorMessage role="alert">{errors.cardCvcCode.message}</ErrorMessage>
-						)}
+						<AnimatePresence>
+							{errors.cardCvcCode && (
+								<ErrorMessage
+									exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
+									animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
+									layout
+									role="alert"
+								>
+									{errors.cardCvcCode.message}
+								</ErrorMessage>
+							)}
+						</AnimatePresence>
 					</FormField>
 				</FormFieldGroup>
 				<Button type="submit">Confirm</Button>

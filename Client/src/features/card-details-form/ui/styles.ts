@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "motion/react";
 
 export const Form = styled.form`
 	position: absolute;
@@ -126,7 +127,7 @@ export const Button = styled.button<ButtonProps>`
 	}
 `;
 
-export const ErrorMessage = styled.p`
+export const ErrorMessage = styled(motion.p)`
 	font-family: var(--font-family);
 	font-weight: 500;
 	font-size: 12rem;
