@@ -5,10 +5,12 @@ import { CardDetailsForm } from "@features/card-details-form/ui";
 import { LiveCardPreview } from "@widgets/live-card-preview/ui";
 import { RootLayout } from "@widgets/layout/root/ui";
 
-// import { with3D, withCursorFollow } from "@shared/lib/hocs";
+import { with3D, withCursorFollow } from "@shared/lib/hocs";
+
 import { Page, PageSection, PageTitle } from "./styles";
 
-// const ThreeDLiveCardPreviewWithCursorFollow = with3D(withCursorFollow(LiveCardPreview));
+const ThreeDCardFrontWithCursorFollow = with3D(withCursorFollow(LiveCardPreview.CardFront));
+const ThreeDCardBackWithCursorFollow = with3D(withCursorFollow(LiveCardPreview.CardBack));
 
 export const HomePage: FC = () => {
 	return (
@@ -17,8 +19,8 @@ export const HomePage: FC = () => {
 				<PageSection>
 					<PageTitle>Interactive card details form</PageTitle>
 					<LiveCardPreview>
-						<LiveCardPreview.CardFront />
-						<LiveCardPreview.CardBack />
+						<ThreeDCardFrontWithCursorFollow width="447rem" height="245rem" />
+						<ThreeDCardBackWithCursorFollow width="447rem" height="245rem" />
 					</LiveCardPreview>
 					<CardDetailsForm />
 				</PageSection>
