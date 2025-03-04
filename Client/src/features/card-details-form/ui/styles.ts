@@ -88,7 +88,7 @@ export const FormInputSrOnlyLabel = styled.label`
 	overflow: hidden;
 `;
 
-export const FormInput = styled.input`
+export const FormInput = styled(motion.input)`
 	border: 1rem solid var(--light-grey);
 	border-radius: 8rem;
 	width: 100%;
