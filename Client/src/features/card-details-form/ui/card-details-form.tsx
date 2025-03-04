@@ -56,6 +56,11 @@ export const CardDetailsForm: FC = () => {
 					</FormInputLabel>
 					<FormInput
 						{...register("cardHolderFullName")}
+						animate={
+							errors.cardHolderFullName
+								? { borderColor: "#ff5050" }
+								: { borderColor: "#dfdee0" }
+						}
 						name="cardHolderFullName"
 						id={cardHolderFullNameInputId}
 						type="text"
@@ -79,6 +84,11 @@ export const CardDetailsForm: FC = () => {
 					<FormInputLabel htmlFor={cardNumberInputId}>Card Number</FormInputLabel>
 					<FormInput
 						{...register("cardNumber")}
+						animate={
+							errors.cardHolderFullName
+								? { borderColor: "#ff5050" }
+								: { borderColor: "#dfdee0" }
+						}
 						name="cardNumber"
 						id={cardNumberInputId}
 						type="text"
@@ -108,6 +118,11 @@ export const CardDetailsForm: FC = () => {
 								</FormInputSrOnlyLabel>
 								<FormInput
 									{...register("cardExpiryMonth")}
+									animate={
+										errors.cardHolderFullName
+											? { borderColor: "#ff5050" }
+											: { borderColor: "#dfdee0" }
+									}
 									name="cardExpiryMonth"
 									id={cardExpirationMonthInputId}
 									type="number"
@@ -133,6 +148,11 @@ export const CardDetailsForm: FC = () => {
 								</FormInputSrOnlyLabel>
 								<FormInput
 									{...register("cardExpiryYear")}
+									animate={
+										errors.cardHolderFullName
+											? { borderColor: "#ff5050" }
+											: { borderColor: "#dfdee0" }
+									}
 									name="cardExpiryYear"
 									id={cardExpirationYearInputId}
 									type="number"
@@ -158,6 +178,11 @@ export const CardDetailsForm: FC = () => {
 						<FormInputLabel htmlFor={cardCvcCodeInputId}>CVC</FormInputLabel>
 						<FormInput
 							{...register("cardCvcCode")}
+							animate={
+								errors.cardHolderFullName
+									? { borderColor: "#ff5050" }
+									: { borderColor: "#dfdee0" }
+							}
 							name="cardCvcCode"
 							id={cardCvcCodeInputId}
 							type="number"
