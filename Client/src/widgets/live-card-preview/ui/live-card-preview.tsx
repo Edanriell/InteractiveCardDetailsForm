@@ -22,6 +22,3 @@ export const LiveCardPreview: LiveCardPreview = ({ children }) => {
 
 LiveCardPreview.CardFront = CardFront;
 LiveCardPreview.CardBack = CardBack;
-
-// TODO
-// Fix card hover and styles across al window sizes
