@@ -31,6 +31,8 @@ export const HomePage: FC = () => {
 										? "path('M10 0h427c5.523 0 10 4.477 10 10v225c0 5.523-4.477 10-10 10h-427c-5.523 0-10-4.477-10-10v-225c0-5.523 4.477-10 10-10z')"
 										: "path('M6 0h274c3.314 0 6 2.686 6 6v145c0 3.314-2.686 6-6 6h-274c-3.314 0-6-2.686-6-6v-145c0-3.314 2.686-6 6-6z')"
 								}
+								glowSize={width && width >= 1440 ? 180 : 120}
+								glowIntensity={0.7}
 							/>
 						</CardFrontWrapper>
 						<CardBackWrapper>
@@ -42,6 +44,8 @@ export const HomePage: FC = () => {
 										? "path('M10 0h427c5.523 0 10 4.477 10 10v225c0 5.523-4.477 10-10 10h-427c-5.523 0-10-4.477-10-10v-225c0-5.523 4.477-10 10-10z')"
 										: "path('M6 0h274c3.314 0 6 2.686 6 6v145c0 3.314-2.686 6-6 6h-274c-3.314 0-6-2.686-6-6v-145c0-3.314 2.686-6 6-6z')"
 								}
+								glowSize={width && width >= 1440 ? 180 : 120}
+								glowIntensity={0.7}
 							/>
 						</CardBackWrapper>
 					</LiveCardPreview>
