@@ -22,3 +22,7 @@ export const LiveCardPreview: LiveCardPreview = ({ children }) => {
 
 LiveCardPreview.CardFront = CardFront;
 LiveCardPreview.CardBack = CardBack;
+
+// TODO
+// Create custom clipPath ! In form of card
+// Fix card hover and styles across al window sizes
