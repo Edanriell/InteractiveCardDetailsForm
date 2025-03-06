@@ -3,7 +3,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AnimatePresence } from "motion/react";
 
-import { formatCardDetails } from "../lib";
+import {
+	formatCardDetails,
+	formatCardNumber,
+	formatCVC,
+	formatExpiryDate,
+	formatFullName
+} from "../lib";
 import { cardDetailsFormSchema } from "../model";
 
 import {
@@ -55,7 +61,12 @@ export const CardDetailsForm: FC = () => {
 						Cardholder Name
 					</FormInputLabel>
 					<FormInput
-						{...register("cardHolderFullName")}
+						{...(register("cardHolderFullName"),
+						{
+							onChange: (e) => {
+								e.target.value = formatFullName(e.target.value);
+							}
+						})}
 						animate={
 							errors.cardHolderFullName
 								? {
@@ -100,7 +111,12 @@ export const CardDetailsForm: FC = () => {
 				<FormField>
 					<FormInputLabel htmlFor={cardNumberInputId}>Card Number</FormInputLabel>
 					<FormInput
-						{...register("cardNumber")}
+						{...(register("cardNumber"),
+						{
+							onChange: (e) => {
+								e.target.value = formatCardNumber(e.target.value);
+							}
+						})}
 						animate={
 							errors.cardHolderFullName
 								? {
@@ -151,7 +167,12 @@ export const CardDetailsForm: FC = () => {
 									Expiry Month
 								</FormInputSrOnlyLabel>
 								<FormInput
-									{...register("cardExpiryMonth")}
+									{...(register("cardExpiryMonth"),
+									{
+										onChange: (e) => {
+											e.target.value = formatExpiryDate(e.target.value);
+										}
+									})}
 									animate={
 										errors.cardHolderFullName
 											? {
@@ -198,7 +219,12 @@ export const CardDetailsForm: FC = () => {
 									Expiry Year
 								</FormInputSrOnlyLabel>
 								<FormInput
-									{...register("cardExpiryYear")}
+									{...(register("cardExpiryYear"),
+									{
+										onChange: (e) => {
+											e.target.value = formatExpiryDate(e.target.value);
+										}
+									})}
 									animate={
 										errors.cardHolderFullName
 											? {
@@ -245,7 +271,12 @@ export const CardDetailsForm: FC = () => {
 					<FormField>
 						<FormInputLabel htmlFor={cardCvcCodeInputId}>CVC</FormInputLabel>
 						<FormInput
-							{...register("cardCvcCode")}
+							{...(register("cardCvcCode"),
+							{
+								onChange: (e) => {
+									e.target.value = formatCVC(e.target.value);
+								}
+							})}
 							animate={
 								errors.cardHolderFullName
 									? {

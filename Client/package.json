@@ -11,9 +11,9 @@
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^4.1.3",
-		"@tanstack/react-router": "^1.112.13",
-		"@tanstack/router-devtools": "^1.112.13",
-		"@tanstack/router-plugin": "^1.112.13",
+		"@tanstack/react-router": "^1.112.17",
+		"@tanstack/router-devtools": "^1.112.17",
+		"@tanstack/router-plugin": "^1.112.17",
 		"less": "^4.2.2",
 		"motion": "^12.4.10",
 		"react": "^19.0.0",
