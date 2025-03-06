@@ -55,3 +55,8 @@ export const HomePage: FC = () => {
 		</RootLayout>
 	);
 };
+
+// TODO
+// Input masks
+// Dynamic value displaying
+// Dynamic value displaying animations
