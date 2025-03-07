@@ -35,7 +35,7 @@ export const cardDetailsFormSchema = yup.object({
 
 	cardExpiryYear: yup
 		.string()
-		.required("Expiration year is required")
+		.required("Can’t be blank")
 		.matches(/^\d{2}$/, "Invalid year")
 		.test("expiry-date", "Card has expired", function (year, { parent }) {
 			const month = Number(parent.cardExpiryMonth);

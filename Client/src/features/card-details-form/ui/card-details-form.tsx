@@ -51,8 +51,6 @@ export const CardDetailsForm: FC = () => {
 		setValue
 	} = useForm<CardDetailsFormData>({ resolver: yupResolver(cardDetailsFormSchema) });
 
-	const trackedCardDetailsFormData = watch();
-
 	const cardHolderFullName = watch("cardHolderFullName", "");
 	const cardNumber = watch("cardNumber", "");
 	const cardExpiryMonth = watch("cardExpiryMonth", "");
@@ -84,8 +82,14 @@ export const CardDetailsForm: FC = () => {
 	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
 
 	useEffect(() => {
-		console.log(trackedCardDetailsFormData);
-	}, [trackedCardDetailsFormData]);
+		setCardDetailsFormData({
+			cardHolderFullName,
+			cardNumber,
+			cardExpiryMonth,
+			cardExpiryYear,
+			cardCvcCode
+		});
+	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
 
 	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {
 		const formattedCardDetailsFormData = formatCardDetails(data);

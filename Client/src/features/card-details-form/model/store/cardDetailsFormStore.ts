@@ -3,10 +3,7 @@ import { create } from "zustand";
 import { CardDetailsFormData } from "../../ui";
 
 type CardDetailsFormStore = {
-	cardDetailsFormData: Omit<CardDetailsFormData, "cardExpiryMonth" | "cardExpiryYear"> & {
-		cardExpiryMonth: string;
-		cardExpiryYear: string;
-	};
+	cardDetailsFormData: CardDetailsFormData;
 	setCardDetailsFormData: (data: CardDetailsFormData) => void;
 	resetCardDetailsFormData: () => void;
 };
@@ -23,9 +20,9 @@ export const useCardDetailsFormStore = create<CardDetailsFormStore>((set) => ({
 		set({
 			cardDetailsFormData: {
 				...data,
-				cardNumber: data.cardNumber.replace(/\s+/g, "").trim(),
-				cardExpiryMonth: data.cardExpiryMonth.toString(),
-				cardExpiryYear: data.cardExpiryYear.toString()
+				cardNumber: data.cardNumber?.replace(/\s+/g, "").trim(),
+				cardExpiryMonth: data.cardExpiryMonth?.toString(),
+				cardExpiryYear: data.cardExpiryYear?.toString()
 			}
 		}),
 	resetCardDetailsFormData: () =>

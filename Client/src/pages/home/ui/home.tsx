@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useEffect } from "react";
 
 import { CardDetailsForm } from "@features/card-details-form/ui";
 
@@ -8,13 +8,21 @@ import { RootLayout } from "@widgets/layout/root/ui";
 import { with3D, withCursorFollow } from "@shared/lib/hocs";
 import { useWindowSize } from "@shared/lib/hooks";
 
+import { useCardDetailsFormStore } from "@features/card-details-form/model/store";
+
 import { CardBackWrapper, CardFrontWrapper, Page, PageSection, PageTitle } from "./styles";
 
 const ThreeDCardFrontWithCursorFollow = with3D(withCursorFollow(LiveCardPreview.CardFront));
 const ThreeDCardBackWithCursorFollow = with3D(withCursorFollow(LiveCardPreview.CardBack));
 
 export const HomePage: FC = () => {
+	const { cardDetailsFormData } = useCardDetailsFormStore();
+
 	const { width } = useWindowSize();
+
+	useEffect(() => {
+		console.log(cardDetailsFormData);
+	});
 
 	return (
 		<RootLayout>
