@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useEffect } from "react";
 
 import { CardDetailsForm } from "@features/card-details-form/ui";
 
@@ -8,13 +8,21 @@ import { RootLayout } from "@widgets/layout/root/ui";
 import { with3D, withCursorFollow } from "@shared/lib/hocs";
 import { useWindowSize } from "@shared/lib/hooks";
 
+import { useCardDetailsFormStore } from "@features/card-details-form/model/store";
+
 import { CardBackWrapper, CardFrontWrapper, Page, PageSection, PageTitle } from "./styles";
 
 const ThreeDCardFrontWithCursorFollow = with3D(withCursorFollow(LiveCardPreview.CardFront));
 const ThreeDCardBackWithCursorFollow = with3D(withCursorFollow(LiveCardPreview.CardBack));
 
 export const HomePage: FC = () => {
+	const { cardDetailsFormData } = useCardDetailsFormStore();
+
 	const { width } = useWindowSize();
+
+	useEffect(() => {
+		console.log(cardDetailsFormData);
+	});
 
 	return (
 		<RootLayout>
@@ -24,6 +32,26 @@ export const HomePage: FC = () => {
 					<LiveCardPreview>
 						<CardFrontWrapper>
 							<ThreeDCardFrontWithCursorFollow
+								cardHolderFullName={
+									cardDetailsFormData.cardHolderFullName
+										? cardDetailsFormData.cardHolderFullName
+										: "Jane Appleseed"
+								}
+								// cardNumber={
+								// 	cardDetailsFormData.cardNumber
+								// 		? cardDetailsFormData.cardNumber
+								// 		: "0000000000000000"
+								// }
+								// cardExpiryMonth={
+								// 	cardDetailsFormData.cardExpiryMonth
+								// 		? cardDetailsFormData.cardExpiryMonth
+								// 		: "00"
+								// }
+								// cardExpiryYear={
+								// 	cardDetailsFormData.cardExpiryYear
+								// 		? cardDetailsFormData.cardExpiryYear
+								// 		: "00"
+								// }
 								width={width && width >= 1440 ? "447rem" : "286rem"}
 								height={width && width >= 1440 ? "245rem" : "157rem"}
 								clipPath={
@@ -37,6 +65,11 @@ export const HomePage: FC = () => {
 						</CardFrontWrapper>
 						<CardBackWrapper>
 							<ThreeDCardBackWithCursorFollow
+								// cardCvcCode={
+								// 	cardDetailsFormData.cardCvcCode
+								// 		? cardDetailsFormData.cardCvcCode
+								// 		: "000"
+								// }
 								width={width && width >= 1440 ? "447rem" : "286rem"}
 								height={width && width >= 1440 ? "245rem" : "157rem"}
 								clipPath={
@@ -55,8 +88,3 @@ export const HomePage: FC = () => {
 		</RootLayout>
 	);
 };
-
-// TODO
-// Input masks
-// Dynamic value displaying
-// Dynamic value displaying animations

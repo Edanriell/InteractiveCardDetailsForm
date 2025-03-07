@@ -1,4 +1,4 @@
-import { type CardDetailsFormData } from "../ui/card-details-form";
+import { type CardDetailsFormData } from "../../ui/card-details-form";
 
 export const formatCardDetails = (data: CardDetailsFormData) => {
 	return {
