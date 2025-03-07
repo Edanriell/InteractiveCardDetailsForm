@@ -9,8 +9,8 @@ import {
 	formatCVC,
 	formatExpiryDate,
 	formatFullName
-} from "../lib";
-import { cardDetailsFormSchema } from "../model";
+} from "../lib/functions";
+import { cardDetailsFormSchema } from "../model/schema";
 
 import {
 	Button,
