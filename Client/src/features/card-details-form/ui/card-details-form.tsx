@@ -1,4 +1,4 @@
-import { type FC, useId } from "react";
+import { type FC, useEffect, useId } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AnimatePresence } from "motion/react";
@@ -11,6 +11,7 @@ import {
 	formatFullName
 } from "../lib/functions";
 import { cardDetailsFormSchema } from "../model/schema";
+import { useCardDetailsFormStore } from "../model/store";
 
 import {
 	Button,
@@ -28,12 +29,14 @@ import {
 export type CardDetailsFormData = {
 	cardHolderFullName: string;
 	cardNumber: string;
-	cardExpiryMonth: number;
-	cardExpiryYear: number;
+	cardExpiryMonth: string;
+	cardExpiryYear: string;
 	cardCvcCode: string;
 };
 
 export const CardDetailsForm: FC = () => {
+	const { setCardDetailsFormData } = useCardDetailsFormStore();
+
 	const cardHolderFullNameInputId = useId();
 	const cardNumberInputId = useId();
 	const cardExpirationMonthInputId = useId();
@@ -43,8 +46,46 @@ export const CardDetailsForm: FC = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors }
+		formState: { errors },
+		watch,
+		setValue
 	} = useForm<CardDetailsFormData>({ resolver: yupResolver(cardDetailsFormSchema) });
+
+	const trackedCardDetailsFormData = watch();
+
+	const cardHolderFullName = watch("cardHolderFullName", "");
+	const cardNumber = watch("cardNumber", "");
+	const cardExpiryMonth = watch("cardExpiryMonth", "");
+	const cardExpiryYear = watch("cardExpiryYear", "");
+	const cardCvcCode = watch("cardCvcCode", "");
+
+	useEffect(() => {
+		const formattedCardHolderFullName = formatFullName(cardHolderFullName);
+		const formattedCardNumber = formatCardNumber(cardNumber);
+		const formattedCardExpiryMonth = formatExpiryDate(cardExpiryMonth);
+		const formattedCardExpiryYear = formatExpiryDate(cardExpiryYear);
+		const formattedCardCvcCode = formatCVC(cardCvcCode);
+
+		if (cardHolderFullName !== formattedCardHolderFullName) {
+			setValue("cardHolderFullName", formattedCardHolderFullName, { shouldValidate: true });
+		}
+		if (cardNumber !== formattedCardNumber) {
+			setValue("cardNumber", formattedCardNumber, { shouldValidate: true });
+		}
+		if (cardExpiryMonth !== formattedCardExpiryMonth) {
+			setValue("cardExpiryMonth", formattedCardExpiryMonth, { shouldValidate: true });
+		}
+		if (cardExpiryYear !== formattedCardExpiryYear) {
+			setValue("cardExpiryYear", formattedCardExpiryYear, { shouldValidate: true });
+		}
+		if (cardCvcCode !== formattedCardCvcCode) {
+			setValue("cardCvcCode", formattedCardCvcCode, { shouldValidate: true });
+		}
+	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
+
+	useEffect(() => {
+		console.log(trackedCardDetailsFormData);
+	}, [trackedCardDetailsFormData]);
 
 	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {
 		const formattedCardDetailsFormData = formatCardDetails(data);
@@ -61,12 +102,7 @@ export const CardDetailsForm: FC = () => {
 						Cardholder Name
 					</FormInputLabel>
 					<FormInput
-						{...(register("cardHolderFullName"),
-						{
-							onChange: (e) => {
-								e.target.value = formatFullName(e.target.value);
-							}
-						})}
+						{...register("cardHolderFullName")}
 						animate={
 							errors.cardHolderFullName
 								? {
@@ -100,7 +136,6 @@ export const CardDetailsForm: FC = () => {
 							<ErrorMessage
 								exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
 								animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-								layout
 								role="alert"
 							>
 								{errors.cardHolderFullName.message}
@@ -111,14 +146,9 @@ export const CardDetailsForm: FC = () => {
 				<FormField>
 					<FormInputLabel htmlFor={cardNumberInputId}>Card Number</FormInputLabel>
 					<FormInput
-						{...(register("cardNumber"),
-						{
-							onChange: (e) => {
-								e.target.value = formatCardNumber(e.target.value);
-							}
-						})}
+						{...register("cardNumber")}
 						animate={
-							errors.cardHolderFullName
+							errors.cardNumber
 								? {
 										borderColor: "#ff5050",
 										backgroundImage:
@@ -131,7 +161,7 @@ export const CardDetailsForm: FC = () => {
 									}
 						}
 						whileFocus={
-							errors.cardHolderFullName
+							errors.cardNumber
 								? {}
 								: {
 										borderColor: "#ffffff00",
@@ -150,7 +180,6 @@ export const CardDetailsForm: FC = () => {
 							<ErrorMessage
 								exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
 								animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-								layout
 								role="alert"
 							>
 								{errors.cardNumber.message}
@@ -167,14 +196,9 @@ export const CardDetailsForm: FC = () => {
 									Expiry Month
 								</FormInputSrOnlyLabel>
 								<FormInput
-									{...(register("cardExpiryMonth"),
-									{
-										onChange: (e) => {
-											e.target.value = formatExpiryDate(e.target.value);
-										}
-									})}
+									{...register("cardExpiryMonth")}
 									animate={
-										errors.cardHolderFullName
+										errors.cardExpiryMonth
 											? {
 													borderColor: "#ff5050",
 													backgroundImage:
@@ -187,7 +211,7 @@ export const CardDetailsForm: FC = () => {
 												}
 									}
 									whileFocus={
-										errors.cardHolderFullName
+										errors.cardExpiryMonth
 											? {}
 											: {
 													borderColor: "#ffffff00",
@@ -206,7 +230,6 @@ export const CardDetailsForm: FC = () => {
 										<ErrorMessage
 											exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
 											animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-											layout
 											role="alert"
 										>
 											{errors.cardExpiryMonth.message}
@@ -219,14 +242,9 @@ export const CardDetailsForm: FC = () => {
 									Expiry Year
 								</FormInputSrOnlyLabel>
 								<FormInput
-									{...(register("cardExpiryYear"),
-									{
-										onChange: (e) => {
-											e.target.value = formatExpiryDate(e.target.value);
-										}
-									})}
+									{...register("cardExpiryYear")}
 									animate={
-										errors.cardHolderFullName
+										errors.cardExpiryYear
 											? {
 													borderColor: "#ff5050",
 													backgroundImage:
@@ -239,7 +257,7 @@ export const CardDetailsForm: FC = () => {
 												}
 									}
 									whileFocus={
-										errors.cardHolderFullName
+										errors.cardExpiryYear
 											? {}
 											: {
 													borderColor: "#ffffff00",
@@ -258,7 +276,6 @@ export const CardDetailsForm: FC = () => {
 										<ErrorMessage
 											exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
 											animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-											layout
 											role="alert"
 										>
 											{errors.cardExpiryYear.message}
@@ -271,14 +288,9 @@ export const CardDetailsForm: FC = () => {
 					<FormField>
 						<FormInputLabel htmlFor={cardCvcCodeInputId}>CVC</FormInputLabel>
 						<FormInput
-							{...(register("cardCvcCode"),
-							{
-								onChange: (e) => {
-									e.target.value = formatCVC(e.target.value);
-								}
-							})}
+							{...register("cardCvcCode")}
 							animate={
-								errors.cardHolderFullName
+								errors.cardCvcCode
 									? {
 											borderColor: "#ff5050",
 											backgroundImage:
@@ -291,7 +303,7 @@ export const CardDetailsForm: FC = () => {
 										}
 							}
 							whileFocus={
-								errors.cardHolderFullName
+								errors.cardCvcCode
 									? {}
 									: {
 											borderColor: "#ffffff00",
@@ -310,7 +322,6 @@ export const CardDetailsForm: FC = () => {
 								<ErrorMessage
 									exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
 									animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-									layout
 									role="alert"
 								>
 									{errors.cardCvcCode.message}
