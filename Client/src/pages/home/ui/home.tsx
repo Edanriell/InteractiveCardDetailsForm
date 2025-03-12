@@ -1,4 +1,4 @@
-import { type FC, useEffect } from "react";
+import { type FC } from "react";
 
 import { CardDetailsForm } from "@features/card-details-form/ui";
 
@@ -19,10 +19,6 @@ export const HomePage: FC = () => {
 	const { cardDetailsFormData } = useCardDetailsFormStore();
 
 	const { width } = useWindowSize();
-
-	useEffect(() => {
-		console.log(cardDetailsFormData);
-	});
 
 	return (
 		<RootLayout>

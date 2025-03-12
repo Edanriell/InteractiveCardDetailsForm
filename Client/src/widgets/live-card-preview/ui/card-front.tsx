@@ -1,5 +1,7 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 
+import { zeroString } from "../lib/functions";
+
 import {
 	CardExpirationDate,
 	CardExpirationMonth,
@@ -28,12 +30,6 @@ export const CardFront: FC<CardFrontProps> = ({
 	cardExpiryYear = "00",
 	...rest
 }) => {
-	const zeroString = (maxLength: number): string => {
-		if (maxLength <= 0) return "";
-
-		return "0".repeat(maxLength);
-	};
-
 	return (
 		<CardFrontFace {...rest}>
 			<CardFrontFaceSmallBackground
