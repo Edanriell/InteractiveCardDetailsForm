@@ -37,21 +37,21 @@ export const HomePage: FC = () => {
 										? cardDetailsFormData.cardHolderFullName
 										: "Jane Appleseed"
 								}
-								// cardNumber={
-								// 	cardDetailsFormData.cardNumber
-								// 		? cardDetailsFormData.cardNumber
-								// 		: "0000000000000000"
-								// }
-								// cardExpiryMonth={
-								// 	cardDetailsFormData.cardExpiryMonth
-								// 		? cardDetailsFormData.cardExpiryMonth
-								// 		: "00"
-								// }
-								// cardExpiryYear={
-								// 	cardDetailsFormData.cardExpiryYear
-								// 		? cardDetailsFormData.cardExpiryYear
-								// 		: "00"
-								// }
+								cardNumber={
+									cardDetailsFormData.cardNumber
+										? cardDetailsFormData.cardNumber
+										: "0000000000000000"
+								}
+								cardExpiryMonth={
+									cardDetailsFormData.cardExpiryMonth
+										? cardDetailsFormData.cardExpiryMonth
+										: "00"
+								}
+								cardExpiryYear={
+									cardDetailsFormData.cardExpiryYear
+										? cardDetailsFormData.cardExpiryYear
+										: "00"
+								}
 								width={width && width >= 1440 ? "447rem" : "286rem"}
 								height={width && width >= 1440 ? "245rem" : "157rem"}
 								clipPath={
@@ -65,11 +65,11 @@ export const HomePage: FC = () => {
 						</CardFrontWrapper>
 						<CardBackWrapper>
 							<ThreeDCardBackWithCursorFollow
-								// cardCvcCode={
-								// 	cardDetailsFormData.cardCvcCode
-								// 		? cardDetailsFormData.cardCvcCode
-								// 		: "000"
-								// }
+								cardCvcCode={
+									cardDetailsFormData.cardCvcCode
+										? cardDetailsFormData.cardCvcCode
+										: "000"
+								}
 								width={width && width >= 1440 ? "447rem" : "286rem"}
 								height={width && width >= 1440 ? "245rem" : "157rem"}
 								clipPath={

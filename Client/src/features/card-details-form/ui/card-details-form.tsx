@@ -49,13 +49,26 @@ export const CardDetailsForm: FC = () => {
 		formState: { errors },
 		watch,
 		setValue
-	} = useForm<CardDetailsFormData>({ resolver: yupResolver(cardDetailsFormSchema) });
+	} = useForm<CardDetailsFormData>({
+		resolver: yupResolver(cardDetailsFormSchema),
+		mode: "onChange"
+	});
 
 	const cardHolderFullName = watch("cardHolderFullName", "");
 	const cardNumber = watch("cardNumber", "");
 	const cardExpiryMonth = watch("cardExpiryMonth", "");
 	const cardExpiryYear = watch("cardExpiryYear", "");
 	const cardCvcCode = watch("cardCvcCode", "");
+
+	useEffect(() => {
+		setCardDetailsFormData({
+			cardHolderFullName,
+			cardNumber,
+			cardExpiryMonth,
+			cardExpiryYear,
+			cardCvcCode
+		});
+	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
 
 	useEffect(() => {
 		const formattedCardHolderFullName = formatFullName(cardHolderFullName);
@@ -79,16 +92,6 @@ export const CardDetailsForm: FC = () => {
 		if (cardCvcCode !== formattedCardCvcCode) {
 			setValue("cardCvcCode", formattedCardCvcCode, { shouldValidate: true });
 		}
-	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
-
-	useEffect(() => {
-		setCardDetailsFormData({
-			cardHolderFullName,
-			cardNumber,
-			cardExpiryMonth,
-			cardExpiryYear,
-			cardCvcCode
-		});
 	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
 
 	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {

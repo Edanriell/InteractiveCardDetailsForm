@@ -29,7 +29,7 @@ export const CardFront: FC<CardFrontProps> = ({
 	...rest
 }) => {
 	const zeroString = (maxLength: number): string => {
-		if (maxLength === 0) return "";
+		if (maxLength <= 0) return "";
 
 		return "0".repeat(maxLength);
 	};
@@ -285,14 +285,11 @@ export const CardFront: FC<CardFrontProps> = ({
 				<HollowCircle />
 			</Logotype>
 			<CardNumber>
-				{cardNumber.split("").map((char) => (
-					<span>{char}</span>
-				))}
-				{zeroString(16 - cardNumber.length)
-					.split("")
-					.map((char) => (
-						<span>{char}</span>
-					))}
+				{cardNumber.length <= 16 && cardNumber.split("").map((char) => <span>{char}</span>)}
+				{cardNumber.length <= 16 &&
+					zeroString(16 - cardNumber.length)
+						.split("")
+						.map((char) => <span>{char}</span>)}
 			</CardNumber>
 			<CardHolderFullName>
 				{cardHolderFullName.split("").map((char) => (

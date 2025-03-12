@@ -8,7 +8,7 @@ type CardBackFaceProps = {
 
 export const CardBack: FC<CardBackFaceProps> = ({ cardCvcCode = "000", ...rest }) => {
 	const zeroString = (maxLength: number): string => {
-		if (maxLength === 0) return "";
+		if (maxLength <= 0) return "";
 
 		return "0".repeat(maxLength);
 	};
