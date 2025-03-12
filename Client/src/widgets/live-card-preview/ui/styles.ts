@@ -131,11 +131,16 @@ export const CardHolderFullName = styled.div`
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: var(--white);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 180rem;
 
 	@media (width >= 1440px) {
 		font-size: 14rem;
 		bottom: 27rem;
 		left: 32rem;
+		max-width: 280rem;
 	}
 `;
 

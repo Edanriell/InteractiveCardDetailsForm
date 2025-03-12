@@ -1,5 +1,7 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 
+import { zeroString } from "../lib/functions";
+
 import {
 	CardExpirationDate,
 	CardExpirationMonth,
@@ -28,12 +30,6 @@ export const CardFront: FC<CardFrontProps> = ({
 	cardExpiryYear = "00",
 	...rest
 }) => {
-	const zeroString = (maxLength: number): string => {
-		if (maxLength === 0) return "";
-
-		return "0".repeat(maxLength);
-	};
-
 	return (
 		<CardFrontFace {...rest}>
 			<CardFrontFaceSmallBackground
@@ -285,40 +281,44 @@ export const CardFront: FC<CardFrontProps> = ({
 				<HollowCircle />
 			</Logotype>
 			<CardNumber>
-				{cardNumber.split("").map((char) => (
-					<span>{char}</span>
-				))}
-				{zeroString(16 - cardNumber.length)
-					.split("")
-					.map((char) => (
-						<span>{char}</span>
-					))}
+				{cardNumber.length <= 16 &&
+					cardNumber
+						.split("")
+						.map((char, index) => (
+							<span key={index + "-" + "card-number"}>{char}</span>
+						))}
+				{cardNumber.length <= 16 &&
+					zeroString(16 - cardNumber.length)
+						.split("")
+						.map((char, index) => (
+							<span key={index + "-" + "card-number-placeholder"}>{char}</span>
+						))}
 			</CardNumber>
 			<CardHolderFullName>
-				{cardHolderFullName.split("").map((char) => (
-					<span>{char}</span>
+				{cardHolderFullName.split("").map((char, index) => (
+					<span key={index + "-" + "card-full-name"}>{char}</span>
 				))}
 			</CardHolderFullName>
 			<CardExpirationDate>
 				<CardExpirationMonth>
-					{cardExpiryMonth.split("").map((char) => (
-						<span>{char}</span>
+					{cardExpiryMonth.split("").map((char, index) => (
+						<span key={index + "-" + "card-expiry-month"}>{char}</span>
 					))}
 					{zeroString(2 - cardExpiryMonth.length)
 						.split("")
-						.map((char) => (
-							<span>{char}</span>
+						.map((char, index) => (
+							<span key={index + "-" + "card-expiry-month-placeholder"}>{char}</span>
 						))}
 				</CardExpirationMonth>
 				<span>/</span>
 				<CardExpirationYear>
-					{cardExpiryYear.split("").map((char) => (
-						<span>{char}</span>
+					{cardExpiryYear.split("").map((char, index) => (
+						<span key={index + "-" + "card-expiry-year"}>{char}</span>
 					))}
 					{zeroString(2 - cardExpiryYear.length)
 						.split("")
-						.map((char) => (
-							<span>{char}</span>
+						.map((char, index) => (
+							<span key={index + "-" + "card-expiry-year-placeholder"}>{char}</span>
 						))}
 				</CardExpirationYear>
 			</CardExpirationDate>
