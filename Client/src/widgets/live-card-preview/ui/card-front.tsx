@@ -1,11 +1,10 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-
-import { zeroString } from "../lib/functions";
+import { AnimatePresence } from "motion/react";
 
 import {
-	CardExpirationDate,
-	CardExpirationMonth,
-	CardExpirationYear,
+	CardExpiryDate,
+	CardExpiryMonth,
+	CardExpiryYear,
 	CardFrontFace,
 	CardFrontFaceLargeBackground,
 	CardFrontFaceSmallBackground,
@@ -17,9 +16,9 @@ import {
 	Logotype,
 	MonthNumber,
 	Number,
-	Space
+	Space,
+	YearNumber
 } from "./styles.ts";
-import { AnimatePresence } from "motion/react";
 
 type CardFrontProps = {
 	cardHolderFullName?: string;
@@ -37,6 +36,7 @@ export const CardFront: FC<CardFrontProps> = ({
 }) => {
 	const cardNumbers = Array.from({ length: 16 }, (_, i) => cardNumber[i] || "0");
 	const cardMonthNumbers = Array.from({ length: 2 }, (_, i) => cardExpiryMonth[i] || "0");
+	const cardYearNumbers = Array.from({ length: 2 }, (_, i) => cardExpiryYear[i] || "0");
 
 	const renderCardNumber = () => {
 		return cardNumbers.map((number, index) => {
@@ -136,6 +136,44 @@ export const CardFront: FC<CardFrontProps> = ({
 					>
 						{monthNumber}
 					</MonthNumber>
+				);
+			}
+		});
+	};
+
+	const renderCardExpiryYear = () => {
+		return cardYearNumbers.map((yearNumber, index) => {
+			if (yearNumber === "0") {
+				return (
+					<YearNumber
+						key={`year-${yearNumber}-${index}`}
+						layoutId={`year-${yearNumber}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{yearNumber}
+					</YearNumber>
+				);
+			} else {
+				return (
+					<YearNumber
+						key={`year-${yearNumber}-${index}`}
+						initial={false}
+						layoutId={`year-${yearNumber}-${index}`}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{yearNumber}
+					</YearNumber>
 				);
 			}
 		});
@@ -395,20 +433,11 @@ export const CardFront: FC<CardFrontProps> = ({
 			<CardHolderFullName>
 				<AnimatePresence mode="popLayout">{renderCardHolderFullName()}</AnimatePresence>
 			</CardHolderFullName>
-			<CardExpirationDate>
-				<CardExpirationMonth>{renderCardExpiryMonth()}</CardExpirationMonth>
+			<CardExpiryDate>
+				<CardExpiryMonth>{renderCardExpiryMonth()}</CardExpiryMonth>
 				<span>/</span>
-				<CardExpirationYear>
-					{cardExpiryYear.split("").map((char, index) => (
-						<span key={index + "-" + "card-expiry-year"}>{char}</span>
-					))}
-					{zeroString(2 - cardExpiryYear.length)
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-expiry-year-placeholder"}>{char}</span>
-						))}
-				</CardExpirationYear>
-			</CardExpirationDate>
+				<CardExpiryYear>{renderCardExpiryYear()}</CardExpiryYear>
+			</CardExpiryDate>
 		</CardFrontFace>
 	);
 };

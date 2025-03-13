@@ -163,7 +163,7 @@ export const Space = styled.span`
 	}
 `;
 
-export const CardExpirationDate = styled.div`
+export const CardExpiryDate = styled.div`
 	position: absolute;
 	bottom: 20rem;
 	right: 21rem;
@@ -181,7 +181,7 @@ export const CardExpirationDate = styled.div`
 	}
 `;
 
-export const CardExpirationMonth = styled.div`
+export const CardExpiryMonth = styled.div`
 	display: inline-block;
 `;
 
@@ -189,7 +189,11 @@ export const MonthNumber = styled(motion.span)`
 	display: inline-block;
 `;
 
-export const CardExpirationYear = styled.div`
+export const CardExpiryYear = styled.div`
+	display: inline-block;
+`;
+
+export const YearNumber = styled(motion.span)`
 	display: inline-block;
 `;
 
