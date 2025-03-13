@@ -140,12 +140,26 @@ export const CardHolderFullName = styled.div`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 180rem;
+	width: 100%;
 
 	@media (width >= 1440px) {
 		font-size: 14rem;
 		bottom: 27rem;
 		left: 32rem;
 		max-width: 280rem;
+	}
+`;
+
+export const Letter = styled(motion.span)`
+	display: inline-block;
+`;
+
+export const Space = styled.span`
+	display: inline-block;
+	width: 5.5rem;
+
+	@media (width >= 1440px) {
+		width: 8rem;
 	}
 `;
 

@@ -13,11 +13,12 @@ import {
 	CardNumber,
 	Circle,
 	HollowCircle,
+	Letter,
 	Logotype,
-	Number
+	Number,
+	Space
 } from "./styles.ts";
-
-import { motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 
 type CardFrontProps = {
 	cardHolderFullName?: string;
@@ -41,12 +42,14 @@ export const CardFront: FC<CardFrontProps> = ({
 				return (
 					<Number
 						key={`${number}-${index}`}
+						layoutId={`${number}-${index}`}
 						initial={false}
 						animate={{
 							opacity: [0, 1],
 							y: [20, 0],
 							filter: ["blur(2.4rem)", "blur(0rem)"]
 						}}
+						exit={{ opacity: 0 }}
 					>
 						{number}
 					</Number>
@@ -56,14 +59,43 @@ export const CardFront: FC<CardFrontProps> = ({
 					<Number
 						key={`${number}-${index}`}
 						initial={false}
+						layoutId={`${number}-${index}`}
 						animate={{
 							opacity: [0, 1],
 							y: [-20, 0],
 							filter: ["blur(2.4rem)", "blur(0rem)"]
 						}}
+						exit={{ opacity: 0 }}
 					>
 						{number}
 					</Number>
+				);
+			}
+		});
+	};
+
+	const renderCardHolderFullName = () => {
+		return cardHolderFullName.split("").map((letter, index) => {
+			if (letter === " ") {
+				return <Space key={`${letter}-${index}`}>{letter}</Space>;
+			} else {
+				return (
+					<Letter
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{
+							opacity: [1, 0],
+							y: [0, 20],
+							filter: ["blur(0rem)", "blur(2.4rem)"]
+						}}
+						key={`${letter}-${index}`}
+					>
+						{letter}
+					</Letter>
 				);
 			}
 		});
@@ -321,20 +353,7 @@ export const CardFront: FC<CardFrontProps> = ({
 			</Logotype>
 			<CardNumber>{renderCardNumber()}</CardNumber>
 			<CardHolderFullName>
-				{cardHolderFullName.split("").map((letter, index) => (
-					<motion.span
-						style={{ display: "inline-block" }}
-						initial={false}
-						animate={{
-							opacity: [0, 1],
-							y: [20, 0],
-							filter: ["blur(2.4rem)", "blur(0rem)"]
-						}}
-						key={`${letter}-${index}`}
-					>
-						{letter}
-					</motion.span>
-				))}
+				<AnimatePresence mode="popLayout">{renderCardHolderFullName()}</AnimatePresence>
 			</CardHolderFullName>
 			<CardExpirationDate>
 				<CardExpirationMonth>
