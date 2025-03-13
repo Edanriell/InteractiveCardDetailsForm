@@ -185,6 +185,10 @@ export const CardExpirationMonth = styled.div`
 	display: inline-block;
 `;
 
+export const MonthNumber = styled(motion.span)`
+	display: inline-block;
+`;
+
 export const CardExpirationYear = styled.div`
 	display: inline-block;
 `;

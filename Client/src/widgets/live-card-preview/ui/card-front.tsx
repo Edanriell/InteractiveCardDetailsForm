@@ -15,6 +15,7 @@ import {
 	HollowCircle,
 	Letter,
 	Logotype,
+	MonthNumber,
 	Number,
 	Space
 } from "./styles.ts";
@@ -35,6 +36,7 @@ export const CardFront: FC<CardFrontProps> = ({
 	...rest
 }) => {
 	const cardNumbers = Array.from({ length: 16 }, (_, i) => cardNumber[i] || "0");
+	const cardMonthNumbers = Array.from({ length: 2 }, (_, i) => cardExpiryMonth[i] || "0");
 
 	const renderCardNumber = () => {
 		return cardNumbers.map((number, index) => {
@@ -96,6 +98,44 @@ export const CardFront: FC<CardFrontProps> = ({
 					>
 						{letter}
 					</Letter>
+				);
+			}
+		});
+	};
+
+	const renderCardExpiryMonth = () => {
+		return cardMonthNumbers.map((monthNumber, index) => {
+			if (monthNumber === "0") {
+				return (
+					<MonthNumber
+						key={`month-${monthNumber}-${index}`}
+						layoutId={`month-${monthNumber}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{monthNumber}
+					</MonthNumber>
+				);
+			} else {
+				return (
+					<MonthNumber
+						key={`month-${monthNumber}-${index}`}
+						initial={false}
+						layoutId={`month-${monthNumber}-${index}`}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{monthNumber}
+					</MonthNumber>
 				);
 			}
 		});
@@ -356,21 +396,7 @@ export const CardFront: FC<CardFrontProps> = ({
 				<AnimatePresence mode="popLayout">{renderCardHolderFullName()}</AnimatePresence>
 			</CardHolderFullName>
 			<CardExpirationDate>
-				<CardExpirationMonth>
-					{cardExpiryMonth.split("").map((char, index) => (
-						<span
-							style={{ display: "inline-block" }}
-							key={index + "-" + "card-expiry-month"}
-						>
-							{char}
-						</span>
-					))}
-					{zeroString(2 - cardExpiryMonth.length)
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-expiry-month-placeholder"}>{char}</span>
-						))}
-				</CardExpirationMonth>
+				<CardExpirationMonth>{renderCardExpiryMonth()}</CardExpirationMonth>
 				<span>/</span>
 				<CardExpirationYear>
 					{cardExpiryYear.split("").map((char, index) => (
