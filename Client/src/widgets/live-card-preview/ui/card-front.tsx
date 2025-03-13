@@ -1,5 +1,4 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-import { AnimatePresence } from "motion/react";
 
 import {
 	CardExpiryDate,
@@ -19,6 +18,7 @@ import {
 	Space,
 	YearNumber
 } from "./styles.ts";
+import { AnimatePresence } from "motion/react";
 
 type CardFrontProps = {
 	cardHolderFullName?: string;
@@ -77,30 +77,38 @@ export const CardFront: FC<CardFrontProps> = ({
 	};
 
 	const renderCardHolderFullName = () => {
-		return cardHolderFullName.split("").map((letter, index) => {
-			if (letter === " ") {
-				return <Space key={`${letter}-${index}`}>{letter}</Space>;
-			} else {
-				return (
-					<Letter
-						initial={false}
-						animate={{
-							opacity: [0, 1],
-							y: [-20, 0],
-							filter: ["blur(2.4rem)", "blur(0rem)"]
-						}}
-						exit={{
-							opacity: [1, 0],
-							y: [0, 20],
-							filter: ["blur(0rem)", "blur(2.4rem)"]
-						}}
-						key={`${letter}-${index}`}
-					>
-						{letter}
-					</Letter>
-				);
-			}
-		});
+		return cardHolderFullName
+			.slice(0, 26)
+			.split("")
+			.map((letter, index) => {
+				if (letter === " ") {
+					return (
+						<Space layout key={`${letter}-${index}`}>
+							{letter}
+						</Space>
+					);
+				} else {
+					return (
+						<Letter
+							layout
+							initial={false}
+							animate={{
+								opacity: [0, 1],
+								y: [-20, 0],
+								filter: ["blur(2.4rem)", "blur(0rem)"]
+							}}
+							exit={{
+								opacity: [1, 0],
+								y: [0, 20],
+								filter: ["blur(0rem)", "blur(2.4rem)"]
+							}}
+							key={`${letter}-${index}`}
+						>
+							{letter}
+						</Letter>
+					);
+				}
+			});
 	};
 
 	const renderCardExpiryMonth = () => {

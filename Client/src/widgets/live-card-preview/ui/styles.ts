@@ -137,10 +137,10 @@ export const CardHolderFullName = styled.div`
 	text-transform: uppercase;
 	color: var(--white);
 	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	max-width: 180rem;
 	width: 100%;
+	display: flex;
+	flex-direction: row;
 
 	@media (width >= 1440px) {
 		font-size: 14rem;
@@ -151,10 +151,11 @@ export const CardHolderFullName = styled.div`
 `;
 
 export const Letter = styled(motion.span)`
-	display: inline-block;
+	display: block;
+	position: relative;
 `;
 
-export const Space = styled.span`
+export const Space = styled(motion.span)`
 	display: inline-block;
 	width: 5.5rem;
 
