@@ -1,11 +1,9 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 
-import { zeroString } from "../lib/functions";
-
 import {
-	CardExpirationDate,
-	CardExpirationMonth,
-	CardExpirationYear,
+	CardExpiryDate,
+	CardExpiryMonth,
+	CardExpiryYear,
 	CardFrontFace,
 	CardFrontFaceLargeBackground,
 	CardFrontFaceSmallBackground,
@@ -13,8 +11,14 @@ import {
 	CardNumber,
 	Circle,
 	HollowCircle,
-	Logotype
+	Letter,
+	Logotype,
+	MonthNumber,
+	Number,
+	Space,
+	YearNumber
 } from "./styles.ts";
+import { AnimatePresence } from "motion/react";
 
 type CardFrontProps = {
 	cardHolderFullName?: string;
@@ -30,6 +34,159 @@ export const CardFront: FC<CardFrontProps> = ({
 	cardExpiryYear = "00",
 	...rest
 }) => {
+	const cardNumbers = Array.from({ length: 16 }, (_, i) => cardNumber[i] || "0");
+	const cardMonthNumbers = Array.from({ length: 2 }, (_, i) => cardExpiryMonth[i] || "0");
+	const cardYearNumbers = Array.from({ length: 2 }, (_, i) => cardExpiryYear[i] || "0");
+
+	const renderCardNumber = () => {
+		return cardNumbers.map((number, index) => {
+			if (number === "0") {
+				return (
+					<Number
+						key={`${number}-${index}`}
+						layoutId={`${number}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{number}
+					</Number>
+				);
+			} else {
+				return (
+					<Number
+						key={`${number}-${index}`}
+						initial={false}
+						layoutId={`${number}-${index}`}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{number}
+					</Number>
+				);
+			}
+		});
+	};
+
+	const renderCardHolderFullName = () => {
+		return cardHolderFullName
+			.slice(0, 26)
+			.split("")
+			.map((letter, index) => {
+				if (letter === " ") {
+					return (
+						<Space layout key={`${letter}-${index}`}>
+							{letter}
+						</Space>
+					);
+				} else {
+					return (
+						<Letter
+							layout
+							initial={false}
+							animate={{
+								opacity: [0, 1],
+								y: [-20, 0],
+								filter: ["blur(2.4rem)", "blur(0rem)"]
+							}}
+							exit={{
+								opacity: [1, 0],
+								y: [0, 20],
+								filter: ["blur(0rem)", "blur(2.4rem)"]
+							}}
+							key={`${letter}-${index}`}
+						>
+							{letter}
+						</Letter>
+					);
+				}
+			});
+	};
+
+	const renderCardExpiryMonth = () => {
+		return cardMonthNumbers.map((monthNumber, index) => {
+			if (monthNumber === "0") {
+				return (
+					<MonthNumber
+						key={`month-${monthNumber}-${index}`}
+						layoutId={`month-${monthNumber}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{monthNumber}
+					</MonthNumber>
+				);
+			} else {
+				return (
+					<MonthNumber
+						key={`month-${monthNumber}-${index}`}
+						initial={false}
+						layoutId={`month-${monthNumber}-${index}`}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{monthNumber}
+					</MonthNumber>
+				);
+			}
+		});
+	};
+
+	const renderCardExpiryYear = () => {
+		return cardYearNumbers.map((yearNumber, index) => {
+			if (yearNumber === "0") {
+				return (
+					<YearNumber
+						key={`year-${yearNumber}-${index}`}
+						layoutId={`year-${yearNumber}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{yearNumber}
+					</YearNumber>
+				);
+			} else {
+				return (
+					<YearNumber
+						key={`year-${yearNumber}-${index}`}
+						initial={false}
+						layoutId={`year-${yearNumber}-${index}`}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{yearNumber}
+					</YearNumber>
+				);
+			}
+		});
+	};
+
 	return (
 		<CardFrontFace {...rest}>
 			<CardFrontFaceSmallBackground
@@ -280,48 +437,15 @@ export const CardFront: FC<CardFrontProps> = ({
 				<Circle />
 				<HollowCircle />
 			</Logotype>
-			<CardNumber>
-				{cardNumber.length <= 16 &&
-					cardNumber
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-number"}>{char}</span>
-						))}
-				{cardNumber.length <= 16 &&
-					zeroString(16 - cardNumber.length)
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-number-placeholder"}>{char}</span>
-						))}
-			</CardNumber>
+			<CardNumber>{renderCardNumber()}</CardNumber>
 			<CardHolderFullName>
-				{cardHolderFullName.split("").map((char, index) => (
-					<span key={index + "-" + "card-full-name"}>{char}</span>
-				))}
+				<AnimatePresence mode="popLayout">{renderCardHolderFullName()}</AnimatePresence>
 			</CardHolderFullName>
-			<CardExpirationDate>
-				<CardExpirationMonth>
-					{cardExpiryMonth.split("").map((char, index) => (
-						<span key={index + "-" + "card-expiry-month"}>{char}</span>
-					))}
-					{zeroString(2 - cardExpiryMonth.length)
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-expiry-month-placeholder"}>{char}</span>
-						))}
-				</CardExpirationMonth>
+			<CardExpiryDate>
+				<CardExpiryMonth>{renderCardExpiryMonth()}</CardExpiryMonth>
 				<span>/</span>
-				<CardExpirationYear>
-					{cardExpiryYear.split("").map((char, index) => (
-						<span key={index + "-" + "card-expiry-year"}>{char}</span>
-					))}
-					{zeroString(2 - cardExpiryYear.length)
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-expiry-year-placeholder"}>{char}</span>
-						))}
-				</CardExpirationYear>
-			</CardExpirationDate>
+				<CardExpiryYear>{renderCardExpiryYear()}</CardExpiryYear>
+			</CardExpiryDate>
 		</CardFrontFace>
 	);
 };

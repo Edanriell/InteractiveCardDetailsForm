@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
@@ -121,6 +122,10 @@ export const CardNumber = styled.div`
 	}
 `;
 
+export const Number = styled(motion.span)`
+	display: inline-block;
+`;
+
 export const CardHolderFullName = styled.div`
 	position: absolute;
 	bottom: 20rem;
@@ -132,9 +137,10 @@ export const CardHolderFullName = styled.div`
 	text-transform: uppercase;
 	color: var(--white);
 	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	max-width: 180rem;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
 
 	@media (width >= 1440px) {
 		font-size: 14rem;
@@ -144,7 +150,21 @@ export const CardHolderFullName = styled.div`
 	}
 `;
 
-export const CardExpirationDate = styled.div`
+export const Letter = styled(motion.span)`
+	display: block;
+	position: relative;
+`;
+
+export const Space = styled(motion.span)`
+	display: inline-block;
+	width: 5.5rem;
+
+	@media (width >= 1440px) {
+		width: 8rem;
+	}
+`;
+
+export const CardExpiryDate = styled.div`
 	position: absolute;
 	bottom: 20rem;
 	right: 21rem;
@@ -162,11 +182,19 @@ export const CardExpirationDate = styled.div`
 	}
 `;
 
-export const CardExpirationMonth = styled.div`
+export const CardExpiryMonth = styled.div`
 	display: inline-block;
 `;
 
-export const CardExpirationYear = styled.div`
+export const MonthNumber = styled(motion.span)`
+	display: inline-block;
+`;
+
+export const CardExpiryYear = styled.div`
+	display: inline-block;
+`;
+
+export const YearNumber = styled(motion.span)`
 	display: inline-block;
 `;
 
@@ -222,7 +250,7 @@ export const SignaturePanel = styled.div`
 	}
 `;
 
-export const Cvv = styled.div`
+export const Cvc = styled.div`
 	font-family: var(--font-family);
 	font-weight: 500;
 	font-size: 9rem;
@@ -238,6 +266,10 @@ export const Cvv = styled.div`
 		font-size: 14rem;
 		right: 16rem;
 	}
+`;
+
+export const CvcNumber = styled(motion.span)`
+	display: inline-block;
 `;
 
 export const EndorsementPanel = styled.svg`
