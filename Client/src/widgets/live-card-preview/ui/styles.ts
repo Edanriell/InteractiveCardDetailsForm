@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
@@ -119,6 +120,10 @@ export const CardNumber = styled.div`
 			margin-right: 17rem;
 		}
 	}
+`;
+
+export const Number = styled(motion.span)`
+	display: inline-block;
 `;
 
 export const CardHolderFullName = styled.div`

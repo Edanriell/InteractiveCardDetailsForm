@@ -13,8 +13,11 @@ import {
 	CardNumber,
 	Circle,
 	HollowCircle,
-	Logotype
+	Logotype,
+	Number
 } from "./styles.ts";
+
+import { motion } from "motion/react";
 
 type CardFrontProps = {
 	cardHolderFullName?: string;
@@ -30,6 +33,42 @@ export const CardFront: FC<CardFrontProps> = ({
 	cardExpiryYear = "00",
 	...rest
 }) => {
+	const cardNumbers = Array.from({ length: 16 }, (_, i) => cardNumber[i] || "0");
+
+	const renderCardNumber = () => {
+		return cardNumbers.map((number, index) => {
+			if (number === "0") {
+				return (
+					<Number
+						key={`${number}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+					>
+						{number}
+					</Number>
+				);
+			} else {
+				return (
+					<Number
+						key={`${number}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+					>
+						{number}
+					</Number>
+				);
+			}
+		});
+	};
+
 	return (
 		<CardFrontFace {...rest}>
 			<CardFrontFaceSmallBackground
@@ -280,29 +319,32 @@ export const CardFront: FC<CardFrontProps> = ({
 				<Circle />
 				<HollowCircle />
 			</Logotype>
-			<CardNumber>
-				{cardNumber.length <= 16 &&
-					cardNumber
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-number"}>{char}</span>
-						))}
-				{cardNumber.length <= 16 &&
-					zeroString(16 - cardNumber.length)
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-number-placeholder"}>{char}</span>
-						))}
-			</CardNumber>
+			<CardNumber>{renderCardNumber()}</CardNumber>
 			<CardHolderFullName>
-				{cardHolderFullName.split("").map((char, index) => (
-					<span key={index + "-" + "card-full-name"}>{char}</span>
+				{cardHolderFullName.split("").map((letter, index) => (
+					<motion.span
+						style={{ display: "inline-block" }}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						key={`${letter}-${index}`}
+					>
+						{letter}
+					</motion.span>
 				))}
 			</CardHolderFullName>
 			<CardExpirationDate>
 				<CardExpirationMonth>
 					{cardExpiryMonth.split("").map((char, index) => (
-						<span key={index + "-" + "card-expiry-month"}>{char}</span>
+						<span
+							style={{ display: "inline-block" }}
+							key={index + "-" + "card-expiry-month"}
+						>
+							{char}
+						</span>
 					))}
 					{zeroString(2 - cardExpiryMonth.length)
 						.split("")
