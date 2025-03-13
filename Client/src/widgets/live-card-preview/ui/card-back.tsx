@@ -1,28 +1,67 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
 
-import { zeroString } from "../lib/functions";
-
-import { CardBackFace, Cvv, EndorsementPanel, MagneticStripe, SignaturePanel } from "./styles.ts";
+import {
+	CardBackFace,
+	Cvc,
+	CvcNumber,
+	EndorsementPanel,
+	MagneticStripe,
+	SignaturePanel
+} from "./styles.ts";
 
 type CardBackFaceProps = {
 	cardCvcCode?: string;
 } & ComponentPropsWithoutRef<"div">;
 
 export const CardBack: FC<CardBackFaceProps> = ({ cardCvcCode = "000", ...rest }) => {
+	const cardCvcNumbers = Array.from(
+		{ length: Math.max(cardCvcCode.length, 3) },
+		(_, i) => cardCvcCode[i] || "0"
+	);
+
+	const renderCardCvcCode = () => {
+		return cardCvcNumbers.map((cvcNumber, index) => {
+			if (cvcNumber === "0") {
+				return (
+					<CvcNumber
+						key={`cvc-${cvcNumber}-${index}`}
+						layoutId={`cvc-${cvcNumber}-${index}`}
+						initial={false}
+						animate={{
+							opacity: [0, 1],
+							y: [20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{cvcNumber}
+					</CvcNumber>
+				);
+			} else {
+				return (
+					<CvcNumber
+						key={`cvc-${cvcNumber}-${index}`}
+						initial={false}
+						layoutId={`cvc-${cvcNumber}-${index}`}
+						animate={{
+							opacity: [0, 1],
+							y: [-20, 0],
+							filter: ["blur(2.4rem)", "blur(0rem)"]
+						}}
+						exit={{ opacity: 0 }}
+					>
+						{cvcNumber}
+					</CvcNumber>
+				);
+			}
+		});
+	};
+
 	return (
 		<CardBackFace {...rest}>
 			<MagneticStripe />
 			<SignaturePanel>
-				<Cvv>
-					{cardCvcCode.split("").map((char, index) => (
-						<span key={index + "-" + "card-cvc"}>{char}</span>
-					))}
-					{zeroString(3 - cardCvcCode.length)
-						.split("")
-						.map((char, index) => (
-							<span key={index + "-" + "card-cvc-placeholder"}>{char}</span>
-						))}
-				</Cvv>
+				<Cvc>{renderCardCvcCode()}</Cvc>
 			</SignaturePanel>
 			<EndorsementPanel
 				width="186"

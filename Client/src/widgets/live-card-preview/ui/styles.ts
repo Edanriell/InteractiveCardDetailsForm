@@ -249,7 +249,7 @@ export const SignaturePanel = styled.div`
 	}
 `;
 
-export const Cvv = styled.div`
+export const Cvc = styled.div`
 	font-family: var(--font-family);
 	font-weight: 500;
 	font-size: 9rem;
@@ -265,6 +265,10 @@ export const Cvv = styled.div`
 		font-size: 14rem;
 		right: 16rem;
 	}
+`;
+
+export const CvcNumber = styled(motion.span)`
+	display: inline-block;
 `;
 
 export const EndorsementPanel = styled.svg`
