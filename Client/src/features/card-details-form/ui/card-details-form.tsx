@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AnimatePresence } from "motion/react";
 
+import { Button } from "@shared/ui/button/ui";
+
 import {
 	formatCardDetails,
 	formatCardNumber,
@@ -14,7 +16,6 @@ import { cardDetailsFormSchema } from "../model/schema";
 import { useCardDetailsFormStore } from "../model/store";
 
 import {
-	Button,
 	ErrorMessage,
 	Fieldset,
 	Form,
