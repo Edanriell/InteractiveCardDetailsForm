@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { motion } from "motion/react";
 
 type ButtonProps = {
 	marginTop?: string;
 };
 
-export const Button = styled.button<ButtonProps>`
+export const Button = styled(motion.button)<ButtonProps>`
 	border-radius: 8rem;
 	width: 100%;
 	height: 53rem;
