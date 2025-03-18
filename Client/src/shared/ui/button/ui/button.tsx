@@ -8,5 +8,17 @@ type ButtonProps = {
 };
 
 export const Button: FC<ButtonProps> = ({ children, type = "button" }) => (
-	<StyledButton type={type}>{children}</StyledButton>
+	<StyledButton
+		initial={{
+			backgroundImage: "linear-gradient(177.23deg, #21092f 6.47%, #21092f 55.14%)"
+		}}
+		whileHover={{
+			scale: 1.05,
+			backgroundImage: "linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
+		}}
+		whileTap={{ scale: 0.95 }}
+		type={type}
+	>
+		{children}
+	</StyledButton>
 );
