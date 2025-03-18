@@ -1,9 +1,9 @@
-import { type FC, useEffect, useId } from "react";
+import { type FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AnimatePresence } from "motion/react";
 
 import { Button } from "@shared/ui/button/ui";
+import { Input } from "@shared/ui/input/ui";
 
 import {
 	formatCardDetails,
@@ -15,17 +15,7 @@ import {
 import { cardDetailsFormSchema } from "../model/schema";
 import { useCardDetailsFormStore } from "../model/store";
 
-import {
-	ErrorMessage,
-	Fieldset,
-	Form,
-	FormField,
-	FormFieldGroup,
-	FormInput,
-	FormInputLabel,
-	FormInputSrOnlyLabel,
-	Legend
-} from "./styles";
+import { Fieldset, Form, FormField, FormFieldGroup, FormInputLabel, Legend } from "./styles";
 
 export type CardDetailsFormData = {
 	cardHolderFullName: string;
@@ -37,12 +27,6 @@ export type CardDetailsFormData = {
 
 export const CardDetailsForm: FC = () => {
 	const { setCardDetailsFormData } = useCardDetailsFormStore();
-
-	const cardHolderFullNameInputId = useId();
-	const cardNumberInputId = useId();
-	const cardExpirationMonthInputId = useId();
-	const cardExpirationYearInputId = useId();
-	const cardCvcCodeInputId = useId();
 
 	const {
 		register,
@@ -105,238 +89,54 @@ export const CardDetailsForm: FC = () => {
 		<Form onSubmit={handleSubmit(onCardDetailsFormSubmit)}>
 			<Fieldset>
 				<Legend>Card Details</Legend>
-				<FormField>
-					<FormInputLabel htmlFor={cardHolderFullNameInputId}>
-						Cardholder Name
-					</FormInputLabel>
-					<FormInput
-						{...register("cardHolderFullName")}
-						animate={
-							errors.cardHolderFullName
-								? {
-										borderColor: "#ff5050",
-										backgroundImage:
-											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-									}
-								: {
-										borderColor: "#dfdee0",
-										backgroundImage:
-											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-									}
-						}
-						whileFocus={
-							errors.cardHolderFullName
-								? {}
-								: {
-										borderColor: "#ffffff00",
-										backgroundImage:
-											"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
-									}
-						}
-						name="cardHolderFullName"
-						id={cardHolderFullNameInputId}
-						type="text"
-						placeholder="e.g. Jane Appleseed"
-						aria-invalid={errors.cardHolderFullName ? "true" : "false"}
-					/>
-					<AnimatePresence>
-						{errors.cardHolderFullName && (
-							<ErrorMessage
-								exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
-								animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-								role="alert"
-							>
-								{errors.cardHolderFullName.message}
-							</ErrorMessage>
-						)}
-					</AnimatePresence>
-				</FormField>
-				<FormField>
-					<FormInputLabel htmlFor={cardNumberInputId}>Card Number</FormInputLabel>
-					<FormInput
-						{...register("cardNumber")}
-						animate={
-							errors.cardNumber
-								? {
-										borderColor: "#ff5050",
-										backgroundImage:
-											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-									}
-								: {
-										borderColor: "#dfdee0",
-										backgroundImage:
-											"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-									}
-						}
-						whileFocus={
-							errors.cardNumber
-								? {}
-								: {
-										borderColor: "#ffffff00",
-										backgroundImage:
-											"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
-									}
-						}
-						name="cardNumber"
-						id={cardNumberInputId}
-						type="text"
-						placeholder="e.g. 1234 5678 9123 0000"
-						aria-invalid={errors.cardNumber ? "true" : "false"}
-					/>
-					<AnimatePresence>
-						{errors.cardNumber && (
-							<ErrorMessage
-								exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
-								animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-								role="alert"
-							>
-								{errors.cardNumber.message}
-							</ErrorMessage>
-						)}
-					</AnimatePresence>
-				</FormField>
+				<Input
+					name="cardHolderFullName"
+					label="Cardholder Name"
+					register={register}
+					type="text"
+					error={errors.cardHolderFullName?.message}
+					placeholder="e.g. Jane Appleseed"
+				/>
+				<Input
+					name="cardNumber"
+					label="Card Number"
+					register={register}
+					type="text"
+					error={errors.cardNumber?.message}
+					placeholder="e.g. 1234 5678 9123 0000"
+				/>
 				<FormFieldGroup width="100%">
 					<FormField>
 						<FormInputLabel>Exp. Date (MM/YY)</FormInputLabel>
 						<FormFieldGroup gap="11rem">
-							<FormField>
-								<FormInputSrOnlyLabel htmlFor={cardExpirationMonthInputId}>
-									Expiry Month
-								</FormInputSrOnlyLabel>
-								<FormInput
-									{...register("cardExpiryMonth")}
-									animate={
-										errors.cardExpiryMonth
-											? {
-													borderColor: "#ff5050",
-													backgroundImage:
-														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-												}
-											: {
-													borderColor: "#dfdee0",
-													backgroundImage:
-														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-												}
-									}
-									whileFocus={
-										errors.cardExpiryMonth
-											? {}
-											: {
-													borderColor: "#ffffff00",
-													backgroundImage:
-														"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
-												}
-									}
-									name="cardExpiryMonth"
-									id={cardExpirationMonthInputId}
-									type="number"
-									placeholder="MM"
-									aria-invalid={errors.cardExpiryMonth ? "true" : "false"}
-								/>
-								<AnimatePresence>
-									{errors.cardExpiryMonth && (
-										<ErrorMessage
-											exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
-											animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-											role="alert"
-										>
-											{errors.cardExpiryMonth.message}
-										</ErrorMessage>
-									)}
-								</AnimatePresence>
-							</FormField>
-							<FormField>
-								<FormInputSrOnlyLabel htmlFor={cardExpirationYearInputId}>
-									Expiry Year
-								</FormInputSrOnlyLabel>
-								<FormInput
-									{...register("cardExpiryYear")}
-									animate={
-										errors.cardExpiryYear
-											? {
-													borderColor: "#ff5050",
-													backgroundImage:
-														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-												}
-											: {
-													borderColor: "#dfdee0",
-													backgroundImage:
-														"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-												}
-									}
-									whileFocus={
-										errors.cardExpiryYear
-											? {}
-											: {
-													borderColor: "#ffffff00",
-													backgroundImage:
-														"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
-												}
-									}
-									name="cardExpiryYear"
-									id={cardExpirationYearInputId}
-									type="number"
-									placeholder="YY"
-									aria-invalid={errors.cardExpiryYear ? "true" : "false"}
-								/>
-								<AnimatePresence>
-									{errors.cardExpiryYear && (
-										<ErrorMessage
-											exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
-											animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-											role="alert"
-										>
-											{errors.cardExpiryYear.message}
-										</ErrorMessage>
-									)}
-								</AnimatePresence>
-							</FormField>
+							<Input
+								name="cardExpiryMonth"
+								label="Expiry Month"
+								srOnly={true}
+								register={register}
+								type="text"
+								error={errors.cardExpiryMonth?.message}
+								placeholder="MM"
+							/>
+							<Input
+								name="cardExpiryYear"
+								label="Expiry Year"
+								srOnly={true}
+								register={register}
+								type="text"
+								error={errors.cardExpiryYear?.message}
+								placeholder="YY"
+							/>
 						</FormFieldGroup>
 					</FormField>
-					<FormField>
-						<FormInputLabel htmlFor={cardCvcCodeInputId}>CVC</FormInputLabel>
-						<FormInput
-							{...register("cardCvcCode")}
-							animate={
-								errors.cardCvcCode
-									? {
-											borderColor: "#ff5050",
-											backgroundImage:
-												"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-										}
-									: {
-											borderColor: "#dfdee0",
-											backgroundImage:
-												"linear-gradient(#fff, #fff), linear-gradient(#fff, #fff)"
-										}
-							}
-							whileFocus={
-								errors.cardCvcCode
-									? {}
-									: {
-											borderColor: "#ffffff00",
-											backgroundImage:
-												"linear-gradient(#fff, #fff), linear-gradient(177.23deg, #6348fe 6.47%, #610595 55.14%)"
-										}
-							}
-							name="cardCvcCode"
-							id={cardCvcCodeInputId}
-							type="number"
-							placeholder="e.g. 123"
-							aria-invalid={errors.cardExpiryYear ? "true" : "false"}
-						/>
-						<AnimatePresence>
-							{errors.cardCvcCode && (
-								<ErrorMessage
-									exit={{ opacity: 0, y: 6, filter: "blur(4rem)" }}
-									animate={{ opacity: 1, y: [6, 0], filter: "blur(0)" }}
-									role="alert"
-								>
-									{errors.cardCvcCode.message}
-								</ErrorMessage>
-							)}
-						</AnimatePresence>
-					</FormField>
+					<Input
+						name="cardCvcCode"
+						label="CVC"
+						register={register}
+						type="text"
+						error={errors.cardCvcCode?.message}
+						placeholder="e.g. 123"
+					/>
 				</FormFieldGroup>
 				<Button type="submit">Confirm</Button>
 			</Fieldset>
