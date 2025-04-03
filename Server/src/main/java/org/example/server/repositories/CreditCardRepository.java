@@ -1,4 +1,4 @@
-package org.example.server.repository;
+package org.example.server.repositories;
 
 import org.example.server.entities.CreditCard;
 import org.springframework.data.jpa.repository.JpaRepository;
