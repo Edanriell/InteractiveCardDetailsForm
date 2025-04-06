@@ -32,6 +32,10 @@ public class CreditCard {
 		this.cvcCode = cvcCode;
 	}
 
+	public CreditCard() {
+
+	}
+
 	public Long getId() {
 		return id;
 	}
