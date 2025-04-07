@@ -1,4 +1,4 @@
-package org.example.server.dto;
+package org.example.server.dtos;
 
 public class CreditCardDto {
 	private Long id;
