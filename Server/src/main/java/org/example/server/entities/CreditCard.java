@@ -1,7 +1,7 @@
 package org.example.server.entities;
 
 import jakarta.persistence.*;
- 
+
 @Entity
 @Table(name = "credit_cards")
 public class CreditCard {
@@ -30,10 +30,6 @@ public class CreditCard {
 		this.expiryMonth = expiryMonth;
 		this.expiryYear = expiryYear;
 		this.cvcCode = cvcCode;
-	}
-
-	public CreditCard() {
-
 	}
 
 	public Long getId() {
