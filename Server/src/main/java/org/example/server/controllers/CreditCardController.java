@@ -57,16 +57,20 @@ public class CreditCardController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CreditCardDto> updateCreditCard(@PathVariable Long id, @RequestBody CreditCardDto creditCardDto) {
+	public ResponseEntity<CreditCardDto> updateCreditCard(
+			@PathVariable Long id,
+			@Valid @RequestBody CreditCardDto creditCardDto) {
+
 		CreditCardDto updatedCreditCard = creditCardService.updateCreditCard(id, creditCardDto);
 
 		if (updatedCreditCard == null) {
 			return ResponseEntity.notFound().build();
+
 		}
 
 		return ResponseEntity.ok(updatedCreditCard);
 	}
-
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteCreditCard(@PathVariable Long id) {
 		boolean deleted = creditCardService.deleteCreditCard(id);
