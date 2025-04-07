@@ -1,5 +1,6 @@
 package org.example.server.controllers;
 
+import jakarta.validation.Valid;
 import org.example.server.dtos.CreditCardDto;
 import org.example.server.services.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class CreditCardController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CreditCardDto> createCreditCard(@RequestBody CreditCardDto creditCardDto) {
+	public ResponseEntity<CreditCardDto> createCreditCard(@Valid @RequestBody CreditCardDto creditCardDto) {
 		CreditCardDto createdCreditCard = creditCardService.createCreditCard(creditCardDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdCreditCard);
