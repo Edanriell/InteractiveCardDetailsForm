@@ -1,5 +1,6 @@
 package org.example.server.controllers;
 
+import jakarta.validation.Valid;
 import org.example.server.dtos.CreditCardDto;
 import org.example.server.services.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,23 +50,27 @@ public class CreditCardController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CreditCardDto> createCreditCard(@RequestBody CreditCardDto creditCardDto) {
+	public ResponseEntity<CreditCardDto> createCreditCard(@Valid @RequestBody CreditCardDto creditCardDto) {
 		CreditCardDto createdCreditCard = creditCardService.createCreditCard(creditCardDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdCreditCard);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CreditCardDto> updateCreditCard(@PathVariable Long id, @RequestBody CreditCardDto creditCardDto) {
+	public ResponseEntity<CreditCardDto> updateCreditCard(
+			@PathVariable Long id,
+			@Valid @RequestBody CreditCardDto creditCardDto) {
+
 		CreditCardDto updatedCreditCard = creditCardService.updateCreditCard(id, creditCardDto);
 
 		if (updatedCreditCard == null) {
 			return ResponseEntity.notFound().build();
+
 		}
 
 		return ResponseEntity.ok(updatedCreditCard);
 	}
-
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteCreditCard(@PathVariable Long id) {
 		boolean deleted = creditCardService.deleteCreditCard(id);
