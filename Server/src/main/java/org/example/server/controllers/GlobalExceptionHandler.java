@@ -1,5 +1,8 @@
 package org.example.server.controllers;
 
+import org.example.server.exceptions.CardExpiredException;
+import org.example.server.exceptions.DuplicateResourceException;
+import org.example.server.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -24,4 +27,37 @@ public class GlobalExceptionHandler {
 		});
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<Map<String, String>> handleResourceNotFoundException(
+			ResourceNotFoundException ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("error", ex.getMessage());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	}
+
+	@ExceptionHandler(DuplicateResourceException.class)
+	public ResponseEntity<Map<String, String>> handleDuplicateResourceException(
+			DuplicateResourceException ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("error", ex.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+	}
+
+	@ExceptionHandler(CardExpiredException.class)
+	public ResponseEntity<Map<String, String>> handleCardExpiredException(
+			CardExpiredException ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("error", ex.getMessage());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Map<String, String>> handleGeneralException(Exception ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("error", "An unexpected error occurred");
+		error.put("message", ex.getMessage());
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+	}
 }
+
