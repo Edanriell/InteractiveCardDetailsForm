@@ -31,6 +31,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'com.h2database:h2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+    implementation("com.bucket4j:bucket4j-core:8.10.1")
 }
 
 tasks.named('test') {
