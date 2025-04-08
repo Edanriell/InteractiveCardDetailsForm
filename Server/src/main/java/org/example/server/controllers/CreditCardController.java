@@ -27,26 +27,36 @@ public class CreditCardController {
 		return ResponseEntity.ok(creditCards);
 	}
 
+//	@GetMapping("/{id}")
+//	public ResponseEntity<CreditCardDto> getCreditCardById(@PathVariable Long id) {
+//		CreditCardDto creditCardDto = creditCardService.getCreditCardById(id);
+//
+//		if (creditCardDto == null) {
+//			return ResponseEntity.notFound().build();
+//		}
+//
+//		return ResponseEntity.ok(creditCardDto);
+//	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<CreditCardDto> getCreditCardById(@PathVariable Long id) {
-		CreditCardDto creditCardDto = creditCardService.getCreditCardById(id);
-
-		if (creditCardDto == null) {
-			return ResponseEntity.notFound().build();
-		}
-
-		return ResponseEntity.ok(creditCardDto);
+		return ResponseEntity.ok(creditCardService.getCreditCardById(id));
 	}
 
-	@GetMapping("/by-number/{number}")
-	public ResponseEntity<CreditCardDto> getCreditCardByNumber(@PathVariable String number) {
-		CreditCardDto creditCardDto = creditCardService.getCreditCardByNumber(number);
+//	@GetMapping("/by-number/{number}")
+//	public ResponseEntity<CreditCardDto> getCreditCardByNumber(@PathVariable String number) {
+//		CreditCardDto creditCardDto = creditCardService.getCreditCardByNumber(number);
+//
+//		if (creditCardDto == null) {
+//			return ResponseEntity.notFound().build();
+//		}
+//
+//		return ResponseEntity.ok(creditCardDto);
+//	}
 
-		if (creditCardDto == null) {
-			return ResponseEntity.notFound().build();
-		}
-
-		return ResponseEntity.ok(creditCardDto);
+	@GetMapping("/by-number/{cardNumber}")
+	public ResponseEntity<CreditCardDto> getCreditCardByNumber(@PathVariable String cardNumber) {
+		return ResponseEntity.ok(creditCardService.getCreditCardByNumber(cardNumber));
 	}
 
 	@PostMapping
@@ -56,29 +66,43 @@ public class CreditCardController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdCreditCard);
 	}
 
+//	@PutMapping("/{id}")
+//	public ResponseEntity<CreditCardDto> updateCreditCard(
+//			@PathVariable Long id,
+//			@Valid @RequestBody CreditCardDto creditCardDto) {
+//
+//		CreditCardDto updatedCreditCard = creditCardService.updateCreditCard(id, creditCardDto);
+//
+//		if (updatedCreditCard == null) {
+//			return ResponseEntity.notFound().build();
+//
+//		}
+//
+//		return ResponseEntity.ok(updatedCreditCard);
+//	}
+
 	@PutMapping("/{id}")
 	public ResponseEntity<CreditCardDto> updateCreditCard(
 			@PathVariable Long id,
 			@Valid @RequestBody CreditCardDto creditCardDto) {
-
-		CreditCardDto updatedCreditCard = creditCardService.updateCreditCard(id, creditCardDto);
-
-		if (updatedCreditCard == null) {
-			return ResponseEntity.notFound().build();
-
-		}
-
-		return ResponseEntity.ok(updatedCreditCard);
+		return ResponseEntity.ok(creditCardService.updateCreditCard(id, creditCardDto));
 	}
-	
+
+//	@DeleteMapping("/{id}")
+//	public ResponseEntity<Void> deleteCreditCard(@PathVariable Long id) {
+//		boolean deleted = creditCardService.deleteCreditCard(id);
+//
+//		if (!deleted) {
+//			return ResponseEntity.notFound().build();
+//		}
+//
+//		return ResponseEntity.noContent().build();
+//	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteCreditCard(@PathVariable Long id) {
-		boolean deleted = creditCardService.deleteCreditCard(id);
-
-		if (!deleted) {
-			return ResponseEntity.notFound().build();
-		}
-
+		creditCardService.deleteCreditCard(id);
+		
 		return ResponseEntity.noContent().build();
 	}
 
