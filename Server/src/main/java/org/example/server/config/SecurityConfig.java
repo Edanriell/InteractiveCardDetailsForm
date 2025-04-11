@@ -36,9 +36,10 @@ public class SecurityConfig {
 		http
 				.csrf(csrf -> csrf.disable())  // In production, consider enabling CSRF protection
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-				.authorizeHttpRequests(authz -> authz
-						.requestMatchers("/api/**").authenticated()
-						.anyRequest().permitAll()
+				.authorizeHttpRequests(auth -> auth
+								.requestMatchers("/**").permitAll()
+//						.requestMatchers("/api/**").authenticated()
+//						.anyRequest().permitAll()
 				)
 				.httpBasic(httpBasic -> {
 				});
@@ -49,7 +50,7 @@ public class SecurityConfig {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+		configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8081"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
 		configuration.setExposedHeaders(Arrays.asList("X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"));
