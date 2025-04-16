@@ -54,9 +54,9 @@ public class CreditCardController {
 //		return ResponseEntity.ok(creditCardDto);
 //	}
 
-	@GetMapping("/by-number/{cardNumber}")
-	public ResponseEntity<CreditCardDto> getCreditCardByNumber(@PathVariable String cardNumber) {
-		return ResponseEntity.ok(creditCardService.getCreditCardByNumber(cardNumber));
+	@GetMapping("/by-number/{number}")
+	public ResponseEntity<CreditCardDto> getCreditCardByNumber(@PathVariable String number) {
+		return ResponseEntity.ok(creditCardService.getCreditCardByNumber(number));
 	}
 
 	@PostMapping
@@ -102,7 +102,7 @@ public class CreditCardController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteCreditCard(@PathVariable Long id) {
 		creditCardService.deleteCreditCard(id);
-		
+
 		return ResponseEntity.noContent().build();
 	}
 

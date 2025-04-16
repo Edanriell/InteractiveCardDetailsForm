@@ -40,10 +40,10 @@ public class CreditCardService {
 		return convertToDto(creditCard);
 	}
 
-	@Cacheable(value = "creditCardByNumber", key = "#cardNumber")
-	public CreditCardDto getCreditCardByNumber(String cardNumber) {
-		CreditCard creditCard = creditCardRepository.findByCardNumber(cardNumber)
-				.orElseThrow(() -> new ResourceNotFoundException("CreditCard", "cardNumber", cardNumber));
+	@Cacheable(value = "creditCardByNumber", key = "#number")
+	public CreditCardDto getCreditCardByNumber(String number) {
+		CreditCard creditCard = creditCardRepository.findByNumber(number)
+				.orElseThrow(() -> new ResourceNotFoundException("CreditCard", "number", number));
 
 		return convertToDto(creditCard);
 	}
@@ -51,7 +51,7 @@ public class CreditCardService {
 	@Caching(
 			put = {
 					@CachePut(value = "creditCardById", key = "#result.id"),
-					@CachePut(value = "creditCardByNumber", key = "#result.cardNumber")
+					@CachePut(value = "creditCardByNumber", key = "#result.number")
 			},
 			evict = {
 					@CacheEvict(value = "creditCards", allEntries = true)
@@ -59,9 +59,9 @@ public class CreditCardService {
 	)
 	public CreditCardDto createCreditCard(CreditCardDto creditCardDto) {
 		// Check if card with same number already exists
-		creditCardRepository.findByCardNumber(creditCardDto.getNumber())
+		creditCardRepository.findByNumber(creditCardDto.getNumber())
 				.ifPresent(card -> {
-					throw new DuplicateResourceException("CreditCard", "cardNumber", creditCardDto.getNumber());
+					throw new DuplicateResourceException("CreditCard", "number", creditCardDto.getNumber());
 				});
 
 		// Validate that card is not expired
@@ -77,7 +77,7 @@ public class CreditCardService {
 	@Caching(
 			put = {
 					@CachePut(value = "creditCardById", key = "#id"),
-					@CachePut(value = "creditCardByNumber", key = "#result.cardNumber")
+					@CachePut(value = "creditCardByNumber", key = "#result.number")
 			},
 			evict = {
 					@CacheEvict(value = "creditCards", allEntries = true)
@@ -90,10 +90,10 @@ public class CreditCardService {
 		}
 
 		// Check if updating to a card number that already exists (and belongs to different card)
-		creditCardRepository.findByCardNumber(creditCardDto.getNumber())
+		creditCardRepository.findByNumber(creditCardDto.getNumber())
 				.ifPresent(existingCard -> {
 					if (!existingCard.getId().equals(id)) {
-						throw new DuplicateResourceException("CreditCard", "cardNumber", creditCardDto.getNumber());
+						throw new DuplicateResourceException("CreditCard", "number", creditCardDto.getNumber());
 					}
 				});
 
