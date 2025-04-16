@@ -14,6 +14,7 @@ import {
 } from "../lib/functions";
 import { cardDetailsFormSchema } from "../model/schema";
 import { useCardDetailsFormStore } from "../model/store";
+import { createCreditCard } from "../api";
 
 import { Fieldset, Form, FormField, FormFieldGroup, FormInputLabel, Legend } from "./styles";
 
@@ -82,7 +83,7 @@ export const CardDetailsForm: FC = () => {
 	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {
 		const formattedCardDetailsFormData = formatCardDetails(data);
 
-		console.log(formattedCardDetailsFormData);
+		createCreditCard({ cardDetailsFormData: formattedCardDetailsFormData });
 	};
 
 	return (

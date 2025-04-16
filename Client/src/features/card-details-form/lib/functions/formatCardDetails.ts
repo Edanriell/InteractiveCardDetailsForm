@@ -11,7 +11,7 @@ export const formatCardDetails = (data: CardDetailsFormData) => {
 			.join(" "),
 		number: data.cardNumber.replace(/\s+/g, "").trim(),
 		expiryMonth: Math.min(Math.max(1, Number(data.cardExpiryMonth)), 12),
-		expiryYear: Number(data.cardExpiryYear),
+		expiryYear: Number("20" + data.cardExpiryYear),
 		cvcCode: data.cardCvcCode.toString().replace(/\D/g, "").slice(0, 4)
 	};
 };
