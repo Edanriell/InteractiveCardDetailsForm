@@ -1,8 +1,6 @@
-import { type FC, useEffect } from "react";
+import { type FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-import { Button } from "@shared/ui/button/ui";
 import { Input } from "@shared/ui/input/ui";
 
 import {
@@ -17,6 +15,7 @@ import { useCardDetailsFormStore } from "../model/store";
 import { createCreditCard } from "../api";
 
 import { Fieldset, Form, FormField, FormFieldGroup, FormInputLabel, Legend } from "./styles";
+import { SmoothButton } from "@shared/ui/smooth-button/ui";
 
 export type CardDetailsFormData = {
 	cardHolderFullName: string;
@@ -26,7 +25,10 @@ export type CardDetailsFormData = {
 	cardCvcCode: string;
 };
 
+type CardDetailsFormState = "idle" | "loading" | "success" | "error";
+
 export const CardDetailsForm: FC = () => {
+	const [cardDetailsFormState, setCardDetailsFormState] = useState<CardDetailsFormState>("idle");
 	const { setCardDetailsFormData } = useCardDetailsFormStore();
 
 	const {
@@ -80,10 +82,24 @@ export const CardDetailsForm: FC = () => {
 		}
 	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
 
-	const onCardDetailsFormSubmit = (data: CardDetailsFormData) => {
+	const onCardDetailsFormSubmit = async (data: CardDetailsFormData) => {
 		const formattedCardDetailsFormData = formatCardDetails(data);
 
-		createCreditCard({ cardDetailsFormData: formattedCardDetailsFormData });
+		try {
+			setCardDetailsFormState("loading");
+
+			const response = await createCreditCard({
+				cardDetailsFormData: formattedCardDetailsFormData
+			});
+			console.log(response);
+
+			setCardDetailsFormState("success");
+		} catch (error) {
+			setCardDetailsFormState("error");
+			console.error(error);
+		} finally {
+			setCardDetailsFormState("idle");
+		}
 	};
 
 	return (
@@ -139,7 +155,13 @@ export const CardDetailsForm: FC = () => {
 						placeholder="e.g. 123"
 					/>
 				</FormFieldGroup>
-				<Button type="submit">Confirm</Button>
+				<SmoothButton
+					idle={<span>Confirm</span>}
+					loading={<span>Loading</span>}
+					success={<span>Success</span>}
+					error={<span>Error</span>}
+					state={cardDetailsFormState}
+				/>
 			</Fieldset>
 		</Form>
 	);
