@@ -16,6 +16,8 @@ export const Button = styled(motion.button)<ButtonProps>`
 	color: var(--white);
 	text-align: center;
 	cursor: pointer;
+	overflow: hidden;
+	position: relative;
 	margin-top: ${({ marginTop }) => marginTop || "8rem"};
 
 	@media (width >= 1440px) {
