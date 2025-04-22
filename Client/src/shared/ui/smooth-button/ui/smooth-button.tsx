@@ -2,17 +2,18 @@ import { type FC, type ReactNode, useEffect, useState } from "react";
 import { AnimatePresence } from "motion/react";
 
 import { Button } from "@shared/ui/button/ui";
-import { ButtonContent } from "@shared/ui/smooth-button/ui/styles.ts";
+
+import { ButtonContent } from "./styles";
+
+type ButtonState = "idle" | "loading" | "success" | "error";
 
 type SmoothButtonProps = {
 	idle: ReactNode;
 	loading: ReactNode;
 	success: ReactNode;
 	error: ReactNode;
-	state: any;
+	state: ButtonState;
 };
-
-type ButtonState = "idle" | "loading" | "success" | "error";
 
 export const SmoothButton: FC<SmoothButtonProps> = ({ idle, loading, success, error, state }) => {
 	const [smoothButtonState, setSmoothButtonState] = useState<ButtonState>("idle");

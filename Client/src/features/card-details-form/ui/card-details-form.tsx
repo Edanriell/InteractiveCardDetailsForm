@@ -1,7 +1,9 @@
 import { type FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 import { Input } from "@shared/ui/input/ui";
+import { Spinner } from "@shared/ui/spinner/ui";
 
 import {
 	formatCardDetails,
@@ -96,9 +98,12 @@ export const CardDetailsForm: FC = () => {
 			setCardDetailsFormState("success");
 		} catch (error) {
 			setCardDetailsFormState("error");
+
 			console.error(error);
 		} finally {
-			setCardDetailsFormState("idle");
+			setTimeout(() => {
+				setCardDetailsFormState("idle");
+			}, 3500);
 		}
 	};
 
@@ -157,9 +162,9 @@ export const CardDetailsForm: FC = () => {
 				</FormFieldGroup>
 				<SmoothButton
 					idle={<span>Confirm</span>}
-					loading={<span>Loading</span>}
-					success={<span>Success</span>}
-					error={<span>Error</span>}
+					loading={<Spinner width={32} height={32} />}
+					success={<span>Continue</span>}
+					error={<span>Try again</span>}
 					state={cardDetailsFormState}
 				/>
 			</Fieldset>
