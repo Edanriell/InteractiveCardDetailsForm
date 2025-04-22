@@ -1,9 +1,11 @@
 import { type FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AnimatePresence } from "motion/react";
 
 import { Input } from "@shared/ui/input/ui";
 import { Spinner } from "@shared/ui/spinner/ui";
+import { SmoothButton } from "@shared/ui/smooth-button/ui";
 
 import {
 	formatCardDetails,
@@ -16,8 +18,18 @@ import { cardDetailsFormSchema } from "../model/schema";
 import { useCardDetailsFormStore } from "../model/store";
 import { createCreditCard } from "../api";
 
-import { Fieldset, Form, FormField, FormFieldGroup, FormInputLabel, Legend } from "./styles";
-import { SmoothButton } from "@shared/ui/smooth-button/ui";
+import {
+	Fieldset,
+	Form,
+	FormContentWrapper,
+	FormField,
+	FormFieldGroup,
+	FormInputLabel,
+	Legend,
+	SuccessMessage,
+	SuccessSection,
+	SuccessTitle
+} from "./styles";
 
 export type CardDetailsFormData = {
 	cardHolderFullName: string;
@@ -110,56 +122,67 @@ export const CardDetailsForm: FC = () => {
 	return (
 		<Form onSubmit={handleSubmit(onCardDetailsFormSubmit)}>
 			<Fieldset>
-				<Legend>Card Details</Legend>
-				<Input
-					name="cardHolderFullName"
-					label="Cardholder Name"
-					register={register}
-					type="text"
-					error={errors.cardHolderFullName?.message}
-					placeholder="e.g. Jane Appleseed"
-				/>
-				<Input
-					name="cardNumber"
-					label="Card Number"
-					register={register}
-					type="text"
-					error={errors.cardNumber?.message}
-					placeholder="e.g. 1234 5678 9123 0000"
-				/>
-				<FormFieldGroup width="100%">
-					<FormField>
-						<FormInputLabel>Exp. Date (MM/YY)</FormInputLabel>
-						<FormFieldGroup gap="11rem">
+				<AnimatePresence>
+					{cardDetailsFormState === "success" ? (
+						<SuccessSection>
+							<SuccessTitle>Thank You!</SuccessTitle>
+							<SuccessMessage>We’ve added your card details</SuccessMessage>
+						</SuccessSection>
+					) : (
+						<FormContentWrapper>
+							<Legend>Card Details</Legend>
 							<Input
-								name="cardExpiryMonth"
-								label="Expiry Month"
-								srOnly={true}
+								name="cardHolderFullName"
+								label="Cardholder Name"
 								register={register}
 								type="text"
-								error={errors.cardExpiryMonth?.message}
-								placeholder="MM"
+								error={errors.cardHolderFullName?.message}
+								placeholder="e.g. Jane Appleseed"
 							/>
 							<Input
-								name="cardExpiryYear"
-								label="Expiry Year"
-								srOnly={true}
+								name="cardNumber"
+								label="Card Number"
 								register={register}
 								type="text"
-								error={errors.cardExpiryYear?.message}
-								placeholder="YY"
+								error={errors.cardNumber?.message}
+								placeholder="e.g. 1234 5678 9123 0000"
 							/>
-						</FormFieldGroup>
-					</FormField>
-					<Input
-						name="cardCvcCode"
-						label="CVC"
-						register={register}
-						type="text"
-						error={errors.cardCvcCode?.message}
-						placeholder="e.g. 123"
-					/>
-				</FormFieldGroup>
+							<FormFieldGroup width="100%">
+								<FormField>
+									<FormInputLabel>Exp. Date (MM/YY)</FormInputLabel>
+									<FormFieldGroup gap="11rem">
+										<Input
+											name="cardExpiryMonth"
+											label="Expiry Month"
+											srOnly={true}
+											register={register}
+											type="text"
+											error={errors.cardExpiryMonth?.message}
+											placeholder="MM"
+										/>
+										<Input
+											name="cardExpiryYear"
+											label="Expiry Year"
+											srOnly={true}
+											register={register}
+											type="text"
+											error={errors.cardExpiryYear?.message}
+											placeholder="YY"
+										/>
+									</FormFieldGroup>
+								</FormField>
+								<Input
+									name="cardCvcCode"
+									label="CVC"
+									register={register}
+									type="text"
+									error={errors.cardCvcCode?.message}
+									placeholder="e.g. 123"
+								/>
+							</FormFieldGroup>
+						</FormContentWrapper>
+					)}
+				</AnimatePresence>
 				<SmoothButton
 					idle={<span>Confirm</span>}
 					loading={<Spinner width={32} height={32} />}

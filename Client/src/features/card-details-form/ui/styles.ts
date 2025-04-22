@@ -21,13 +21,40 @@ export const Fieldset = styled.fieldset`
 	border: none;
 	margin: unset;
 	padding: unset;
+`;
+
+export const FormContentWrapper = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 	row-gap: 20rem;
+	margin-bottom: 28rem;
 
 	@media (width >= 1440px) {
 		row-gap: 26rem;
+		margin-bottom: 40rem;
 	}
+`;
+
+export const SuccessSection = styled(motion.div)`
+	margin-bottom: 48rem;
+`;
+
+export const SuccessTitle = styled.h2`
+	font-family: var(--font-family);
+	font-weight: 500;
+	font-size: 28rem;
+	letter-spacing: 0.12em;
+	text-align: center;
+	color: var(--deep-violet);
+	text-transform: uppercase;
+`;
+
+export const SuccessMessage = styled.p`
+	font-family: var(--font-family);
+	font-weight: 500;
+	font-size: 18rem;
+	text-align: center;
+	color: var(--purplish-grey);
 `;
 
 export const Legend = styled.legend`
