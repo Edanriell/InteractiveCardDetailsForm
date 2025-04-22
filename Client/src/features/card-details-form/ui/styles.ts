@@ -47,6 +47,8 @@ export const SuccessTitle = styled.h2`
 	text-align: center;
 	color: var(--deep-violet);
 	text-transform: uppercase;
+	margin-bottom: 16rem;
+	margin-top: 35rem;
 `;
 
 export const SuccessMessage = styled.p`

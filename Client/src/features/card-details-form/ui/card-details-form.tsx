@@ -6,6 +6,7 @@ import { AnimatePresence } from "motion/react";
 import { Input } from "@shared/ui/input/ui";
 import { Spinner } from "@shared/ui/spinner/ui";
 import { SmoothButton } from "@shared/ui/smooth-button/ui";
+import { Checkmark } from "@shared/ui/checkmark/ui";
 
 import {
 	formatCardDetails,
@@ -125,6 +126,7 @@ export const CardDetailsForm: FC = () => {
 				<AnimatePresence>
 					{cardDetailsFormState === "success" ? (
 						<SuccessSection>
+							<Checkmark />
 							<SuccessTitle>Thank You!</SuccessTitle>
 							<SuccessMessage>We’ve added your card details</SuccessMessage>
 						</SuccessSection>
