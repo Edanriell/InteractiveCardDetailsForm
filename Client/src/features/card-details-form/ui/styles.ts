@@ -37,6 +37,9 @@ export const FormContentWrapper = styled(motion.div)`
 
 export const SuccessSection = styled(motion.div)`
 	margin-bottom: 48rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `;
 
 export const SuccessTitle = styled.h2`
