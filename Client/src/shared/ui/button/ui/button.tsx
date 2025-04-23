@@ -7,7 +7,7 @@ type ButtonProps = {
 	type?: "submit" | "button" | "reset";
 };
 
-export const Button: FC<ButtonProps> = ({ children, type = "button" }) => (
+export const Button: FC<ButtonProps> = ({ children, type = "button", ...rest }) => (
 	<StyledButton
 		initial={{
 			backgroundImage: "linear-gradient(177.23deg, #21092f 6.47%, #21092f 55.14%)"
@@ -18,6 +18,7 @@ export const Button: FC<ButtonProps> = ({ children, type = "button" }) => (
 		}}
 		whileTap={{ scale: 0.95 }}
 		type={type}
+		{...rest}
 	>
 		{children}
 	</StyledButton>

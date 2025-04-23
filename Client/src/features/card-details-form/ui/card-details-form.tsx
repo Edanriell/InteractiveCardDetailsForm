@@ -31,6 +31,7 @@ import {
 	SuccessSection,
 	SuccessTitle
 } from "./styles";
+import { useIsFirstRender } from "@shared/lib/hooks";
 
 export type CardDetailsFormData = {
 	cardHolderFullName: string;
@@ -45,6 +46,7 @@ type CardDetailsFormState = "idle" | "loading" | "success" | "error";
 export const CardDetailsForm: FC = () => {
 	const [cardDetailsFormState, setCardDetailsFormState] = useState<CardDetailsFormState>("idle");
 	const { setCardDetailsFormData } = useCardDetailsFormStore();
+	const isFirstRender = useIsFirstRender();
 
 	const {
 		register,
@@ -97,8 +99,21 @@ export const CardDetailsForm: FC = () => {
 		}
 	}, [cardHolderFullName, cardNumber, cardExpiryMonth, cardExpiryYear, cardCvcCode]);
 
+	useEffect(() => {
+		console.log(cardDetailsFormState);
+		if (cardDetailsFormState === "error") {
+			setTimeout(() => {
+				setCardDetailsFormState("idle");
+			}, 6000);
+		}
+	}, [cardDetailsFormState]);
+
 	const onCardDetailsFormSubmit = async (data: CardDetailsFormData) => {
 		const formattedCardDetailsFormData = formatCardDetails(data);
+
+		if (cardDetailsFormState === "success") {
+			setCardDetailsFormState("idle");
+		}
 
 		try {
 			setCardDetailsFormState("loading");
@@ -113,25 +128,61 @@ export const CardDetailsForm: FC = () => {
 			setCardDetailsFormState("error");
 
 			console.error(error);
-		} finally {
-			setTimeout(() => {
-				setCardDetailsFormState("idle");
-			}, 3500);
 		}
 	};
 
 	return (
 		<Form onSubmit={handleSubmit(onCardDetailsFormSubmit)}>
 			<Fieldset>
-				<AnimatePresence>
-					{cardDetailsFormState === "success" ? (
-						<SuccessSection>
+				<AnimatePresence mode="wait">
+					{cardDetailsFormState === "success" && (
+						<SuccessSection
+							initial={{ opacity: 0 }}
+							animate={{
+								opacity: 1,
+								scale: [0.95, 1],
+								rotateY: [-30, 0],
+								filter: ["blur(2rem)", "blur(0rem)"]
+							}}
+							exit={{
+								opacity: 0,
+								scale: [1, 0.95],
+								rotateY: [0, 30],
+								filter: "blur(2rem"
+							}}
+							transition={{ type: "spring", duration: 1, bounce: 0 }}
+							key={cardDetailsFormState}
+							style={{
+								perspective: "1000rem",
+								transformStyle: "preserve-3d"
+							}}
+						>
 							<Checkmark />
 							<SuccessTitle>Thank You!</SuccessTitle>
 							<SuccessMessage>We’ve added your card details</SuccessMessage>
 						</SuccessSection>
-					) : (
-						<FormContentWrapper>
+					)}
+					{cardDetailsFormState !== "success" && (
+						<FormContentWrapper
+							initial={isFirstRender ? false : { opacity: 1 }}
+							animate={{
+								opacity: 1,
+								scale: [0.95, 1],
+								rotateY: [30, 0],
+								filter: ["blur(2rem)", "blur(0rem)"]
+							}}
+							exit={{
+								opacity: 0,
+								scale: [1, 0.95],
+								rotateY: [0, -30],
+								filter: "blur(2rem)"
+							}}
+							transition={{ type: "spring", duration: 1, bounce: 0 }}
+							style={{
+								perspective: "1000rem",
+								transformStyle: "preserve-3d"
+							}}
+						>
 							<Legend>Card Details</Legend>
 							<Input
 								name="cardHolderFullName"
@@ -186,6 +237,7 @@ export const CardDetailsForm: FC = () => {
 					)}
 				</AnimatePresence>
 				<SmoothButton
+					disabled={cardDetailsFormState === "error"}
 					idle={<span>Confirm</span>}
 					loading={<Spinner width={32} height={32} />}
 					success={<span>Continue</span>}

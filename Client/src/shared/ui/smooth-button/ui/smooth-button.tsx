@@ -1,4 +1,4 @@
-import { type FC, type ReactNode, useEffect, useState } from "react";
+import { type ComponentPropsWithoutRef, type FC, type ReactNode, useEffect, useState } from "react";
 import { AnimatePresence } from "motion/react";
 
 import { Button } from "@shared/ui/button/ui";
@@ -13,9 +13,16 @@ type SmoothButtonProps = {
 	success: ReactNode;
 	error: ReactNode;
 	state: ButtonState;
-};
+} & ComponentPropsWithoutRef<"button">;
 
-export const SmoothButton: FC<SmoothButtonProps> = ({ idle, loading, success, error, state }) => {
+export const SmoothButton: FC<SmoothButtonProps> = ({
+	idle,
+	loading,
+	success,
+	error,
+	state,
+	...rest
+}) => {
 	const [smoothButtonState, setSmoothButtonState] = useState<ButtonState>("idle");
 
 	const smoothButtonContent = {
@@ -42,7 +49,7 @@ export const SmoothButton: FC<SmoothButtonProps> = ({ idle, loading, success, er
 	}, [state]);
 
 	return (
-		<Button type="submit">
+		<Button type="submit" {...rest}>
 			<AnimatePresence mode="popLayout" initial={false}>
 				<ButtonContent
 					transition={{ type: "spring", duration: 0.3, bounce: 0 }}
