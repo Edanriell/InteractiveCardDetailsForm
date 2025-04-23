@@ -113,6 +113,7 @@ export const CardDetailsForm: FC = () => {
 
 		if (cardDetailsFormState === "success") {
 			setCardDetailsFormState("idle");
+			return;
 		}
 
 		try {
